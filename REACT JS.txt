@@ -1,0 +1,420 @@
+REACT JS
+
+REQUEST => SERVER => pages (aspx,jsp,php,cgi) =>(SERVER) HTML conversion (RENDERING) => RESPONSE => CLIENT (html,css,js)
+
+REQUEST => SERVER => pages (html) => RESPONSE => CLIENT (html,css,js)
+
+
+SERVER
+1. RENDERING : converting aspx,jsp,php into html : 90% : CLIENT  : DISPLAY
+
+2. LOGIC : db transaction : 10% : SERVER
+
+1 SERVER : 100mb : 1000 users
+
+1 user : 1mb
+10 user : 10mb
+
+100 users
+
+110 users
+
+1000
+
+js/jquery :
+html : code
+
+MVC : model view controller
+
+component design pattern : reusable widgets
+
+angularjs : JS DOM
+
+JS DOM
+1. DOM manipulation : document.getElementById
+2. RENDERING
+
+POSTS
+
+on load : fetches some set of posts
+
+POST 1
+
+
+
+POST 10
+
+on scroll down : fetch more data
+POST 11
+
+
+
+POST 20
+
+JS DOM : 10 post : RENDER
+JS DOM : 20 post : RE RENDER
+
+100 post : RE RENDER
+
+previously available : newly added
+
+Virtual DOM : RECONCILATION
+Data change => a clone of the JS DOM will be created : 10 POSTS
+                    => the clone with contain the updated data set : 20 POSTS : 0.001sec
+                        => compare the difference between the clone & JS DOM : 20 POSTS - 10 POSTS : 0.1 sec
+                            => able to effectively identify what had changed : NEW 10 POSTS : 10 sec
+                                => patching the difference on to the JS DOM
+
+
+JS : dom manipulation, rendering
+angular js : 100 posts : 100 sec
+react : 10 post
+
+1 POST : 1sec
+
+COMPONENT 
+user defined html tag
+reusable building blocks
+
+<p></p>
+<p></p>
+<p></p>
+
+
+<Demo />
+<Demo />
+<Demo />
+
+TOOLS
+1. CRA : create-react-app : CLI 
+2. React devtools
+3. Redux devtools
+
+auto rename tag
+Bracket Pair Colorizer
+Bracket Pair Colorizer 2
+error lens
+peacock
+prettier
+
+
+npx create-react-app shop-app --template typescript
+
+Shop-app
+    node_modules : deps
+    public : whatever is accessible in the browser
+        index.html : start file
+    src : source root (code)
+    package.json
+
+    cd shop-app
+    npm run start
+
+    index.html
+    index.tsx
+    App.tsx : Root component / main entry component
+
+    WEBPACK : webpack-dev-server, HMR
+
+    COMPONENTS
+    1. Filename & ComponentName should be same : maintenance
+    2. ComponentName should be PascalCase
+
+    Class
+    Function
+
+    1. smallest reusable entity
+
+    src
+        components : DUMB
+            Product.tsx
+        containers : SMART
+            ProductList.tsx
+        services : bussiness logic
+            ProductService.ts
+
+        types.ts : data types definition
+
+    SRP : 
+    Product : 
+    1. how the data should be displayed
+        1.1 when to show/hide button
+        1.2 should the button text display add to cart/add to wishlist
+
+
+    fetch from server : api
+    add to cart : button
+    add to wishlist 
+    hide button
+
+    PAGE 1 : list of products : add to cart
+        Product : fetch data : add to cart
+    
+    PAGE 2 : list of products : add to wishlist
+        Product : fetch data : add to wishlist
+
+    PAGE 3 : list of products : catalogue view
+        Product : fetch data : hide button
+        
+
+    Atomic design : atoms & molecules
+
+    SMART : Logic : fetching data, add to cart,add to wishlist
+    DUMB  : Presentation : displaying data
+
+    SMART : fetches the data from server , passes the data to DUMB, what to do when the button is clicked
+    DUMB : recieves the data, it displays it, tells the parent component about the button click
+
+    APP
+        Currency : selected code
+        ProductList : plist
+                    Product : pdata : code + price
+
+    Currency => App => ProductList => Product
+
+    PARENT <=> CHILD
+
+    PARENT TO CHILD : props (properties) : value
+    <p align="center">test</p>
+
+    CHILD TO PARENT : props (events) : function
+    <button type="submit" onclick="func()">Submit</button>
+
+
+    
+    Apple : 100
+    Banana : 101
+    Grapes : 102
+
+
+    Apple : 100
+    Mango : 103
+    Banana : 101
+    Grapes : 102
+    
+    
+    props : sharing data between components (parent/child)
+    state : UI updates : re render
+
+    class : stateful
+    function : stateless : no state, no LIFECYCLE
+
+    STATE :
+    1. state should always be initialise
+    2. state should always be immutable
+        2.1 setState
+            2.1.1 keeps ur state immutable internally
+            2.1.2 calls the render function automatically
+
+    STATE : object : mutable
+
+    stack : exec : ref : same ref
+    heap : mem alloc : data updated
+
+    V DOM : will always detect a change in reference only in stack
+            as detecting data changes in heap is expensive
+
+    state : 100
+    stack               heap
+    100                 currentCurrency : INR
+
+    updating the state in mutable format
+    100                 currentCurrency : USD
+
+    update the state in immutable format
+    200                 currentCurrency : USD
+
+
+    string, number, boolean : IMMUTABLE
+    immutability : ARRAYS & OBJECTS
+    1. to prevent data loss
+    2. to have better change detection
+
+    var : hoisted scope
+    let, const : block scope
+
+    REST API's
+    immutability in js
+    SOLID
+    RDBMS
+    OAUTH
+
+
+    GET DATA : fetch API
+
+    cloud db function will be exposed as REST API
+
+    LIFECYCLE hooks : Class component
+
+    mounting
+        constructor
+        render
+        componentDidMount : on load
+
+    updating
+        render : setState
+
+    unmounting
+
+    SMART
+    DUMB
+
+    Class
+    Function : no state, no LIFECYCLE, PureComponent by default
+
+    RENDER BEHAVIOR
+    Component
+    PureComponent
+
+    FORMS
+    Controlled (recommended) : state : V-DOM : React env
+    Uncontrolled : ref <=> v-dom <=> REACT <=> js-dom <=> document.getElementById 
+
+    Wrapper : UI
+
+    <Component />
+    <Component>
+        CONTENT
+    </Component>
+
+    <img />
+    <h1>Demo</h1>
+    <p>Test</p>
+
+    APP : state
+        Header
+                Location : start
+
+        Main
+            Banners
+            Streaming : Location
+            laughter : Location
+            outdoor : Location
+
+    Bangalore => Mumbai : re rendered
+    Mumbai => Bangalore : re rendered
+    Bangalore => Bangalore : no need for re rendered
+
+    RE RENDER : props/state
+
+    document.getElementById (ref) : JS DOM : 
+    V DOM : ref (reference)
+
+    <div>
+        <img />
+        <h2>
+        <h3>
+        <button>
+    </div>
+
+    PASSING DATA
+    props : PARENT & CHILD
+    context API : v16 : consumer (many), provider (1)
+    redux : application level state management/session management
+
+
+context API : only the descendants of the provider can be a consumer
+    App : provider
+        ThemeSwitch : selected theme
+        Currency
+        ProductList
+            Column : logic : consumer
+                Product
+                
+class : SMART : Component : all the properties : 100 functions
+
+function : DUMB : state : one
+
+REACT HOOKS : 16.8 : Function
+hooks are used to add any functionality to a functional component that is only available inside class components
+
+Always run your side effects within a LIFECYCLE hook only
+SIDE EFFECT : any functionality that executes outside the Virtual dom env
+
+AJAX
+DOM manipulation
+Timer functions
+
+
+useEffect(()=>{
+    // unmounting
+    return ()=>{
+
+    }
+},[])
+
+CONTEXT HELL
+<Theme.Provider>
+    <Cart.Provider>
+        <User.Provider>
+
+        </User.Provider>
+    </Cart.Provider>
+</Theme.Provider>
+
+
+ROUTER : npm i react-router-dom
+npm i @types/react-router-dom -D
+
+APP
+    Static : header, footer, nav
+    Dynamic : router
+
+
+AppRouter.tsx
+
+App
+    Header
+        Nav
+
+    Main : ROUTER
+
+    Footer
+
+
+    ROUTE PROPS
+    history : navigation
+    match : path param
+    location : query param
+
+    URL PARAMS
+    path : /product/1000 : required
+    query : /product?page=2 : optional
+
+    FLUX & REDUX
+
+    FLUX : PATTERN : uni directional data flow
+    REDUX : Library
+
+    State management : session management
+
+    FLUX : store : data repository : state (component)
+
+    REDUX : store : global
+
+    1. create actions :
+    actions are functions which return a dispatcher object
+
+    2. create reducer :
+    reducers are functions which analyse the type of dispatcher & returns the updated data to the store in immutable format
+
+    3. create store : once/app : 1 store
+    store is created by combining the data returned from the reducers
+
+    4. providing the store to app
+
+    5. connecting the component to the store : store the data, change the data
+
+    npm i redux react-redux
+    npm i -D @types/react-redux
+
+    src
+        store
+            actions
+                CurrencyActions.ts
+            reducers
+            index.ts : store config file
+
+    Every time an action is dispatched all the reducers are invoked by the store
+    Once the store recieves the data change information, it publishes a notification to all the connected components
+

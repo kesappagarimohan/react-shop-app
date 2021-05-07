@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap");
+body {
+  font-family: "Open Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+.bg-dark .shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(255, 255, 255, 0.075) !important;
+}
+.bg-light {
+  background-color: white !important;
+}
+.btn:focus,
+.form-control-sm:focus {
+  box-shadow: none;
+}
+.error-page-wrap .row {
+  margin-top: 8rem;
+  font-family: "Zen Dots", cursive;
+}
+.theme-buttons .fas {
+  font-size: 1.5em;
+}
+
+.fa-stack[data-count]:after {
+  position: absolute;
+  right: 0%;
+  top: -12%;
+  content: attr(data-count);
+  font-size: 45%;
+  padding: 0.6em;
+  border-radius: 999px;
+  line-height: 0.75em;
+  color: #f44336;
+  text-align: center;
+  min-width: 2em;
+  font-weight: bold;
+  background: white;
+  border-style: solid;
+}
+.fa-circle {
+  color: #0d6efd;
+}
+
+#overlay {
+  background: #ffffff;
+  color: #666666;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 5000;
+  top: 0;
+  left: 0;
+  float: left;
+  text-align: center;
+  padding-top: 25%;
+  opacity: 0.8;
+}
+/* .spinner {
+    margin: 0 auto;
+    height: 64px;
+    width: 64px;
+    animation: rotate 0.8s infinite linear;
+    border: 5px solid red;
+    border-right-color: transparent;
+    border-radius: 50%;
+}
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+} */

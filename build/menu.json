@@ -1,0 +1,10 @@
+[
+    {
+        "menuItem": "Home",
+        "menuLink": "/"
+    },
+    {
+        "menuItem": "Products",
+        "menuLink": "/products"
+    }
+]
