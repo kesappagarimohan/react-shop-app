@@ -13,19 +13,19 @@ const LoginButtons: React.FC = (props) => {
   if (auth) {
     return (
       <>
-      <Link className="btn btn-link" to={"/profile"}>
-        Profile
-      </Link>
-      <button
-        className="btn btn-sm btn-outline-primary mx-2"
-        onClick={() => {
-          StorageService.clearAll()
-          dispatch(UserActions.logout());
-          history.push("/"); // redirect
-        }} 
-      >
-        Logout
-      </button>
+        <Link className="btn btn-link" to={"/profile"}>
+          Profile
+        </Link>
+        <button
+          className="btn btn-sm btn-outline-primary mx-2"
+          onClick={() => {
+            StorageService.clearAll();
+            dispatch(UserActions.logout());
+            history.push("/"); // redirect
+          }}
+        >
+          Logout
+        </button>
       </>
     );
   }
@@ -36,9 +36,3 @@ const LoginButtons: React.FC = (props) => {
   );
 };
 export default LoginButtons;
-
-
-
-
-
-

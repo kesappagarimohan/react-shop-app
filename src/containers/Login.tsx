@@ -4,22 +4,22 @@ import { RouteComponentProps } from "react-router";
 import { Redirect } from "react-router-dom";
 import { Dispatch } from "redux";
 import Column from "../components/Column";
+import LoadingWrapper from "../components/LoadingWrapper";
 import Row from "../components/Row";
 import TextBox from "../components/TextBox";
 import StorageService from "../services/StorageService";
 import UserService from "../services/UserService";
+import LoadingActions from "../store/actions/LoadingActions";
 import UserActions from "../store/actions/UserActions";
 import { StoreType } from "../types";
-import LoadingWrapper from "../components/LoadingWrapper";
 import formatter from "../utils/formatter";
-import LoadingActions from "../store/actions/LoadingActions";
 type LoginProps = {
   signinSuccess: (user: object) => void;
   signinError: (error: string) => void;
-  isAuthenticated: boolean;
-  errorMessage: string | null;
   showLoader: () => void;
   hideLoader: () => void;
+  isAuthenticated: boolean;
+  errorMessage: string | null;
 } & RouteComponentProps;
 type LoginState = { email: string; password: string };
 class Login extends React.Component<LoginProps, LoginState> {
@@ -43,7 +43,7 @@ class Login extends React.Component<LoginProps, LoginState> {
       let lastPage = "/"; // by default home page
       const state: any = this.props.location.state;
       if (state && state.from) {
-        lastPage = state.from;
+        lastPage = state.from; // last page path
       }
       return <Redirect to={lastPage} />;
     }
@@ -82,7 +82,7 @@ class Login extends React.Component<LoginProps, LoginState> {
 }
 const mapStoreDataToProps = (storeData: StoreType) => {
   return {
-    isAuthenticated: !!storeData.userSession.user,
+    isAuthenticated: !!storeData.userSession.user, // converting to boolean
     errorMessage: storeData.userSession.error,
   };
 };

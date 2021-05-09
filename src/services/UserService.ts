@@ -1,6 +1,7 @@
 import axios from "axios";
 import constants from "../constants";
 import { LoginResponseType } from "../types";
+import StorageService from "./StorageService";
 
 const login = (email: string, password: string) => {
   const url = `${constants.BASE_URL}/auth/login`;
@@ -11,9 +12,11 @@ const login = (email: string, password: string) => {
 
 const profile = () => {
   const url = `${constants.BASE_URL}/auth/profile`;
-  return axios.get(url, {
-    headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
-  });
+  return StorageService.getData("token").then((token) =>
+    axios.get(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+  );
 };
 
 export default { login, profile };

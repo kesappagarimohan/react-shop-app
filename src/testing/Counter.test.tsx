@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Counter from "./Counter";
 import UserEvent from "@testing-library/user-event";
+
 describe("Counter Component", () => {
   test("on load it should display 0", () => {
     render(<Counter />);
@@ -20,5 +21,9 @@ describe("Counter Component", () => {
     UserEvent.click(screen.getByTestId("decrement-btn"));
     // assert functions
     expect(screen.getByTestId("countervalue")).toHaveTextContent("-1");
+  });
+  test("match snapshot", () => {
+    const { asFragment } = render(<Counter />);
+    expect(asFragment).toMatchSnapshot();
   });
 });

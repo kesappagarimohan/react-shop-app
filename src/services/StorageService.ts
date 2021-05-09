@@ -19,9 +19,9 @@ const getData = (key: string) => {
     } catch (e) {
       reject(e);
     }
-
   });
 };
 
-const clearAll =()=>sessionStorage.clear()
-export default { storeData, getData ,clearAll};
+const clearAll = () => sessionStorage.clear();
+
+export default { storeData, getData, clearAll };

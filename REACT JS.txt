@@ -418,3 +418,66 @@ App
     Every time an action is dispatched all the reducers are invoked by the store
     Once the store recieves the data change information, it publishes a notification to all the connected components
 
+    Public routes
+    Protected routes
+
+    main.chunk : 253 kB => 247 kB
+
+    admin : 1mb
+
+    employee : 1mb
+    
+    report : 1mb
+
+    ~3mb
+
+    Code splitting : Lazy & Suspense
+
+    Lazy : use this to load a component on demand
+    Suspense : create a Suspense till the code has been loaded lazily
+<App>
+    <feature1>
+        <Component1>
+            <Component2>
+                <Component3></Component3>
+            </Component2>
+        </Component1>
+    </feature1>
+    <ErrorBoundary>
+        <feature2>
+            <Component1>
+                <Component2>
+                    <Component3></Component3> : Error
+                </Component2>
+            </Component1>
+        </feature2>
+    </ErrorBoundary>
+    <feature3>
+        <Component1>
+            <Component2>
+                <Component3></Component3>
+            </Component2>
+        </Component1>
+    </feature3>
+</App>
+
+PRODUCTION BUILD
+npm run build
+
+SERVER 
+url : 
+abc.com : index.html
+abc.com/products : products.html
+
+Build automation
+git repository => cloud server => push changes =>
+                                        npm run build
+                                        deploy build
+
+TESTING
+1. unit testing
+2. snapshot testing : verifying if the html has changed (tracking)
+
+jest : JS testing Library
+enzyme (air bnb) : rendered
+RTL

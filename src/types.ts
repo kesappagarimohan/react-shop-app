@@ -1,8 +1,8 @@
 export type StoreType = {
   currency: string;
   cart: CartType[];
-  loading: boolean;
   userSession: UserSessionType;
+  loading: boolean;
 };
 
 export type ProductType = {

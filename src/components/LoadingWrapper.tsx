@@ -1,20 +1,25 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { StoreType } from "../types";
+
 const LoadingWrapper: React.FC<{}> = ({ children }) => {
   const loading = useSelector<StoreType>((store) => store.loading);
   return (
     <>
       <div
-        className="spinner-border"
-        style={{
-          width: "3rem",
-          height: "3rem",
-          visibility: loading ? "visible" : "hidden",
-        }}
-        role="status"
+        className="loader-overlay"
+        style={{ visibility: loading ? "visible" : "hidden" }}
       >
-        <span className="visually-hidden">Loading...</span>
+        <div
+          className="spinner-border text-primary"
+          style={{
+            width: "3rem",
+            height: "3rem",
+          }}
+          role="status"
+        >
+          <span className="visually-hidden">Loading...</span>
+        </div>
       </div>
       {children}
     </>
