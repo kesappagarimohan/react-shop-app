@@ -3,6 +3,7 @@ import { StoreType } from "../../types";
 import cartReducer from "./CartReducer";
 import currencyReducer from "./CurrencyReducer";
 import loadingReducer from "./LoadingReducer";
+import SearchReducer from "./SerachReducer";
 import userReducer from "./UserReducer";
 
 const rootReducer = combineReducers<StoreType>({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers<StoreType>({
   cart: cartReducer,
   userSession: userReducer,
   loading: loadingReducer,
+  search:SearchReducer,
 });
 
 export default rootReducer;

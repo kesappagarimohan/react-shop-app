@@ -3,6 +3,7 @@ export type StoreType = {
   cart: CartType[];
   userSession: UserSessionType;
   loading: boolean;
+  search:string;
 };
 
 export type ProductType = {

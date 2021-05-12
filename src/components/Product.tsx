@@ -32,9 +32,12 @@ class Product extends React.Component<ProductProps> {
   render() {
     const { pdata, wishlist, currencyCode } = this.props;
     return (
-      <div className="p-4 shadow-sm text-center">
+      <div className="p-4 shadow-lg text-center">
         <Link to={`/productdetail/${pdata.productId}`}>
-          <ImageWithFallback source={pdata.productImage} />
+          <ImageWithFallback
+            source={pdata.productImage}
+            classes={"w-100 h-100 img-thumbnail"}
+          />
         </Link>
         <h5 className={"mt-4"}>{formatter.titlecase(pdata.productName)}</h5>
         <ProductPrice

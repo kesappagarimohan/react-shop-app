@@ -11,6 +11,10 @@ import CartActions from "../store/actions/CartActions";
 import Paginate from "../components/Paginate";
 import LoadingWrapper from "../components/LoadingWrapper";
 import LoadingActions from "../store/actions/LoadingActions";
+import {
+  parseIsolatedEntityName,
+  validateLocaleAndSetLanguage,
+} from "typescript";
 
 type Props = {
   selectedCurrency: string;
@@ -41,24 +45,27 @@ class ProductList extends React.Component<Props, State> {
   }
   addToCart(product: ProductType) {
     this.props.addItem(product); // add to cart logic
-    this.props.history.push("/cart"); // redirect to cart page
+    //this.props.history.push("/cart"); // redirect to cart page
   }
   updateData = (page: number) =>
     this.setState({ pageNumber: page }, () => this.getData());
+
   render() {
     return (
       <LoadingWrapper>
         <Row>
-          {this.state.plist.map((val) => (
-            <Column size={3} classes={"my-3"}>
-              <Product
-                btnClick={() => this.addToCart(val)}
-                pdata={val}
-                key={val.productId}
-                currencyCode={this.props.selectedCurrency}
-              />
-            </Column>
-          ))}
+          {this.state.plist
+            .filter((val) => val)
+            .map((val) => (
+              <Column size={3} classes={"my-3"}>
+                <Product
+                  btnClick={() => this.addToCart(val)}
+                  pdata={val}
+                  key={val.productId}
+                  currencyCode={this.props.selectedCurrency}
+                />
+              </Column>
+            ))}
           <Column size={12} classes={"text-center"}>
             <Paginate
               totalPages={this.state.totalPages}
