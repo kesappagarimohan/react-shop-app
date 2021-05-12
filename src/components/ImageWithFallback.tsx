@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
-type Props = { source: string,classes?: string; };
-
-const ImageWithFallback: React.FC<Props> = ({ source,classes }) => {
+type Props = { source: string; classes?: string };
+const ImageWithFallback: React.FC<Props> = ({ source, classes }) => {
   let [imgSrc, setDefault] = useState(source);
   return (
     <img
