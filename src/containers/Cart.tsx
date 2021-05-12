@@ -68,6 +68,7 @@ class Cart extends Component<Props> {
               </div>
             </Column>
           ))}
+          <Column size={4}></Column>
         </Row>
       </Container>
     );
