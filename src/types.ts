@@ -45,5 +45,4 @@ export type UserSessionType = {
 export type RegisterType = {
   email: String;
   name: string;
-  password: any;
 };

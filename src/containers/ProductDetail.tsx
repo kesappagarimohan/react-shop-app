@@ -1,11 +1,17 @@
 import React from "react";
+import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import Column from "../components/Column";
 import ErrorBoundary from "../components/ErrorBoundary";
 import Row from "../components/Row";
 import ProductService from "../services/ProductService";
+import { CartType, StoreType } from "../types";
 
-class ProductDetail extends React.Component<RouteComponentProps> {
+type Props = {
+  cart: CartType[];
+  count: number;
+} & RouteComponentProps;
+class ProductDetail extends React.Component<Props, RouteComponentProps> {
   async componentDidMount() {
     try {
       const params: any = this.props.match.params;
@@ -23,8 +29,19 @@ class ProductDetail extends React.Component<RouteComponentProps> {
             <h1>Product Detail</h1>
           </Column>
         </Row>
+        <Row>
+          {this.props.cart.map((item) => (
+            <Column size={9}></Column>
+          ))}
+        </Row>
       </ErrorBoundary>
     );
   }
 }
-export default ProductDetail;
+const mapStateToProps = (state: StoreType) => {
+  return {
+    cart: state.cart,
+  };
+};
+
+export default connect(mapStateToProps)(ProductDetail);
