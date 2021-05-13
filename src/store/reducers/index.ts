@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import { StoreType } from "../../types";
 import cartReducer from "./CartReducer";
+import counterReducer from "./CountReducer";
 import currencyReducer from "./CurrencyReducer";
 import loadingReducer from "./LoadingReducer";
 import SearchReducer from "./SerachReducer";
@@ -12,7 +13,8 @@ const rootReducer = combineReducers<StoreType>({
   cart: cartReducer,
   userSession: userReducer,
   loading: loadingReducer,
-  search:SearchReducer,
+  search: SearchReducer,
+  count: counterReducer,
 });
 
 export default rootReducer;

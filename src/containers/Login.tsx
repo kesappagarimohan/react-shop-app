@@ -1,7 +1,7 @@
 import React, { SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router";
-import { Redirect } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { Dispatch } from "redux";
 import Column from "../components/Column";
 import LoadingWrapper from "../components/LoadingWrapper";
@@ -73,6 +73,7 @@ class Login extends React.Component<LoginProps, LoginState> {
               <button className={"btn btn-success w-100 text-uppercase"}>
                 Login
               </button>
+              <NavLink to={"/register"}>Register</NavLink>
             </form>
           </Column>
         </Row>

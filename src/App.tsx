@@ -24,7 +24,6 @@ class App extends React.Component<{}, State> {
     return (
       <BrowserRouter>
         <Header theme={theme}>
-          <CartButton />
           <ThemeSwitch themeChange={(theme) => this.setState({ theme })} />
           <Currency theme={theme} />
           <LoginButtons />

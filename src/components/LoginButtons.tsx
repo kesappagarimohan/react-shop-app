@@ -4,6 +4,9 @@ import { Link, useHistory } from "react-router-dom";
 import StorageService from "../services/StorageService";
 import UserActions from "../store/actions/UserActions";
 import { StoreType } from "../types";
+import CartButton from "./CartButton";
+import Currency from "./Currency";
+import ThemeSwitch from "./ThemeSwitch";
 
 const LoginButtons: React.FC = (props) => {
   // const store = useStore<StoreType>();
@@ -13,6 +16,7 @@ const LoginButtons: React.FC = (props) => {
   if (auth) {
     return (
       <>
+        <CartButton />
         <Link className="btn btn-link" to={"/profile"}>
           Profile
         </Link>

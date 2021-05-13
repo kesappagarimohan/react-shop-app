@@ -5,8 +5,10 @@ import ErrorPage from "./components/ErrorPage";
 import PrivateRoute from "./components/PrivateRoute";
 import Cart from "./containers/Cart";
 import Login from "./containers/Login";
+import { Payment } from "./containers/Payment";
 import ProductDetail from "./containers/ProductDetail";
 import ProductList from "./containers/ProductList";
+import Register from "./containers/Register";
 // import Profile from "./containers/Profile";
 import Demo from "./Demo";
 
@@ -21,9 +23,11 @@ const AppRouter: React.FC = (props) => {
             <Route path={"/"} component={Demo} exact />
             <Route path={"/products"} component={ProductList} />
             <Route path={"/login"} component={Login} />
-            <Route path={"/cart"} component ={Cart} />
+            <Route path={"/cart"} component={Cart} />
             <PrivateRoute path={"/profile"} component={LazyProfile} />
             <Route path={"/productdetail/:id"} component={ProductDetail} />
+            <Route path={"/payment"} component={Payment}></Route>
+            <Route path={"/register"} component={Register}></Route>
 
             {/* 404 Route */}
             <Route component={ErrorPage} />

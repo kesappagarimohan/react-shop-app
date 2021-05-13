@@ -18,5 +18,8 @@ const profile = () => {
     })
   );
 };
-
-export default { login, profile };
+const register = (email: string, password: string, name: string) => {
+  const url = `${constants.BASE_URL}/auth/register`;
+  return axios.post(url, { email, password, name });
+};
+export default { login, profile, register };

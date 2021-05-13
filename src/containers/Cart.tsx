@@ -1,7 +1,7 @@
 import { IconButton } from "@material-ui/core";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link, RouteComponentProps } from "react-router-dom";
+import { Link, NavLink, RouteComponentProps } from "react-router-dom";
 import Column from "../components/Column";
 import ImageWithFallback from "../components/ImageWithFallback";
 import Row from "../components/Row";
@@ -12,10 +12,26 @@ import PlusOneIcon from "@material-ui/icons/PlusOne";
 import Container from "../components/Container";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import ExposureNeg1Icon from "@material-ui/icons/ExposureNeg1";
+import { Dispatch } from "redux";
+import CartActions from "../store/actions/CartActions";
 type Props = {
   cart: CartType[];
+  count: number;
 } & RouteComponentProps;
 class Cart extends Component<Props> {
+  deleteItem = () => {
+    console.log(this.props.cart);
+    const delteData = this.props.cart;
+    delteData.slice();
+    this.setState({
+      deleteCartData: delteData,
+    });
+  };
+
+  // remove(id: number): void {
+  //   this.props.removeItem(id); // add to cart logic
+  //   //this.props.history.push("/cart"); // redirect to cart page
+  // }
   render() {
     return (
       <Container>
@@ -52,10 +68,12 @@ class Cart extends Component<Props> {
               </div>
               <div className="btn d-flex align-items-start flex-column">
                 <div className="d-flex mb-5">
-                  <IconButton onClick={() => console.log("increment")}>
+                  <IconButton>
                     <PlusOneIcon />
                   </IconButton>
-                  <p></p>
+                  <IconButton>
+                    <p>{this.props.count}</p>
+                  </IconButton>
                   <IconButton>
                     <ExposureNeg1Icon />
                   </IconButton>
@@ -70,6 +88,18 @@ class Cart extends Component<Props> {
           ))}
           <Column size={4}></Column>
         </Row>
+        <Row>
+          <Column size={12}>
+            <NavLink to={"/payment"}>
+              <button
+                onClick={() => console.log("checkout")}
+                className="bg-warning border border-3 rounded-3  fw-bold  fs-3 text-light text-center p-2 w-50 align-items-start shadow-lg float-end"
+              >
+                Check Out
+              </button>
+            </NavLink>
+          </Column>
+        </Row>
       </Container>
     );
   }
@@ -78,6 +108,14 @@ class Cart extends Component<Props> {
 const mapStateToProps = (state: StoreType) => {
   return {
     cart: state.cart,
+    count: state.count,
   };
 };
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    increment: () => dispatch(CartActions.incrementItem()),
+    decrement: () => dispatch(CartActions.decrimentItem()),
+    removeItem: (id: number) => dispatch(CartActions.removeItem(id)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

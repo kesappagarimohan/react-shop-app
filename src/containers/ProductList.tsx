@@ -15,6 +15,7 @@ import {
   parseIsolatedEntityName,
   validateLocaleAndSetLanguage,
 } from "typescript";
+import { Slider } from "@material-ui/core";
 
 type Props = {
   selectedCurrency: string;
@@ -22,9 +23,19 @@ type Props = {
   hideLoader: () => void;
   addItem: (product: ProductType) => void;
 } & RouteComponentProps;
-type State = { plist: ProductType[]; totalPages: number; pageNumber: number };
+type State = {
+  plist: ProductType[];
+  totalPages: number;
+  pageNumber: number;
+  value: any;
+};
 class ProductList extends React.Component<Props, State> {
-  state: State = { plist: [], totalPages: 0, pageNumber: 1 };
+  state: State = {
+    plist: [],
+    totalPages: 0,
+    pageNumber: 1,
+    value: [0, 100000],
+  };
   componentDidMount() {
     this.getData();
   }
@@ -47,25 +58,34 @@ class ProductList extends React.Component<Props, State> {
     this.props.addItem(product); // add to cart logic
     //this.props.history.push("/cart"); // redirect to cart page
   }
+  
   updateData = (page: number) =>
     this.setState({ pageNumber: page }, () => this.getData());
+  rangeSelector = (event: any, newValue: any) => {
+    this.setState({ value: newValue });
+  };
 
   render() {
     return (
       <LoadingWrapper>
+        <Slider
+          max={100000}
+          value={this.state.value}
+          onChange={this.rangeSelector}
+          valueLabelDisplay="auto"
+        />
+
         <Row>
-          {this.state.plist
-            .filter((val) => val)
-            .map((val) => (
-              <Column size={3} classes={"my-3"}>
-                <Product
-                  btnClick={() => this.addToCart(val)}
-                  pdata={val}
-                  key={val.productId}
-                  currencyCode={this.props.selectedCurrency}
-                />
-              </Column>
-            ))}
+          {this.state.plist.map((val) => (
+            <Column size={3} classes={"my-3"}>
+              <Product
+                btnClick={() => this.addToCart(val)}
+                pdata={val}
+                key={val.productId}
+                currencyCode={this.props.selectedCurrency}
+              />
+            </Column>
+          ))}
           <Column size={12} classes={"text-center"}>
             <Paginate
               totalPages={this.state.totalPages}

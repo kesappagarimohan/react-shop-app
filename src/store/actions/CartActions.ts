@@ -1,8 +1,11 @@
+import { type } from "node:os";
 import { ProductType } from "../../types";
 
 const ActionTypes = {
   ADD_TO_CART: "[Cart] Add to cart",
   REMOVE_ITEM: "[Cart] Remove item",
+  INCRIMENT: "[increment]",
+  DECRIMENT: "DEC",
 };
 
 const addToCart = (product: ProductType) => {
@@ -17,4 +20,21 @@ const removeItem = (id: number) => {
     id,
   };
 };
-export default { ActionTypes, addToCart, removeItem };
+
+const incrementItem = () => {
+  return {
+    type: ActionTypes.INCRIMENT,
+  };
+};
+const decrimentItem = () => {
+  return {
+    type: ActionTypes.DECRIMENT,
+  };
+};
+export default {
+  ActionTypes,
+  addToCart,
+  removeItem,
+  incrementItem,
+  decrimentItem,
+};
