@@ -52,7 +52,7 @@ class ProductDetail extends React.Component<Props, State, RouteComponentProps> {
               />
               <div className="ms-4">
                 <h4 className="mb-5"> ProductName : {val.productName}</h4>
-                <h4 className="bd-highlight mt-2 mb-5">
+                <h4 className="bg-highlight mt-2 mb-5">
                   ProductPrice : {val.productPrice}
                 </h4>
                 <h4 className="mt-2 mb-5">

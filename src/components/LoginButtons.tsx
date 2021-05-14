@@ -1,3 +1,4 @@
+import { Avatar, IconButton } from "@material-ui/core";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
@@ -18,7 +19,9 @@ const LoginButtons: React.FC = (props) => {
       <>
         <CartButton />
         <Link className="btn btn-link" to={"/profile"}>
-          Profile
+          <IconButton>
+            <Avatar />
+          </IconButton>
         </Link>
         <button
           className="btn btn-sm btn-outline-primary mx-2"

@@ -17,21 +17,17 @@ import CartActions from "../store/actions/CartActions";
 type Props = {
   cart: CartType[];
   count: number;
+  removeItem: (id: number) => void;
 } & RouteComponentProps;
 class Cart extends Component<Props> {
-  deleteItem = () => {
-    console.log(this.props.cart);
-    const delteData = this.props.cart;
-    delteData.slice();
-    this.setState({
-      deleteCartData: delteData,
-    });
-  };
-
   // remove(id: number): void {
   //   this.props.removeItem(id); // add to cart logic
   //   //this.props.history.push("/cart"); // redirect to cart page
   // }
+  removeFormCart(id: number) {
+    this.props.removeItem(id); // add to cart logic
+    //this.props.history.push("/cart"); // redirect to cart page
+  }
   render() {
     return (
       <Container>
@@ -78,8 +74,8 @@ class Cart extends Component<Props> {
                     <ExposureNeg1Icon />
                   </IconButton>
                 </div>
-                <div className="re">
-                  <IconButton>
+                <div className="v">
+                  <IconButton onClick={this.removeFormCart}>
                     <DeleteOutlineIcon />
                   </IconButton>
                 </div>
