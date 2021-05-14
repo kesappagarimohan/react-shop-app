@@ -14,16 +14,24 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import ExposureNeg1Icon from "@material-ui/icons/ExposureNeg1";
 import { Dispatch } from "redux";
 import CartActions from "../store/actions/CartActions";
+import Button from "../components/Button";
 type Props = {
   cart: CartType[];
   count: number;
   removeItem: (id: number) => void;
+  incrementItem: () => void;
+
+  // btnClick: () => void;
 } & RouteComponentProps;
 class Cart extends Component<Props> {
   // remove(id: number): void {
   //   this.props.removeItem(id); // add to cart logic
   //   //this.props.history.push("/cart"); // redirect to cart page
   // }
+  increment() {
+    this.props.incrementItem();
+  }
+
   removeFormCart(id: number) {
     this.props.removeItem(id); // add to cart logic
     //this.props.history.push("/cart"); // redirect to cart page
@@ -63,22 +71,11 @@ class Cart extends Component<Props> {
                 <p className="mt-2 text-success">Price: {val.productPrice}</p>
               </div>
               <div className="btn d-flex align-items-start flex-column">
-                <div className="d-flex mb-5">
-                  <IconButton>
-                    <PlusOneIcon />
-                  </IconButton>
-                  <IconButton>
-                    <p>{this.props.count}</p>
-                  </IconButton>
-                  <IconButton>
-                    <ExposureNeg1Icon />
-                  </IconButton>
-                </div>
-                <div className="v">
-                  <IconButton onClick={this.removeFormCart}>
-                    <DeleteOutlineIcon />
-                  </IconButton>
-                </div>
+                <Button
+                  btnClick={() => this.props.removeItem(val.productId)}
+                  btnInc={() => this.props.incrementItem()}
+                  qty={val.productQty}
+                />
               </div>
             </Column>
           ))}
@@ -109,8 +106,8 @@ const mapStateToProps = (state: StoreType) => {
 };
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    increment: () => dispatch(CartActions.incrementItem()),
-    decrement: () => dispatch(CartActions.decrimentItem()),
+    incrementItem: () => dispatch(CartActions.incrementItem()),
+    decrementItem: () => dispatch(CartActions.decrimentItem()),
     removeItem: (id: number) => dispatch(CartActions.removeItem(id)),
   };
 };
