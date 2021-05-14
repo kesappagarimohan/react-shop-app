@@ -4,14 +4,14 @@ import { ProductType } from "../../types";
 import ProductActions from "../actions/ProductDetailAction";
 
 type IAction = {
-  product: ProductType;
+  product: ProductType[];
   id: number;
 } & Action;
 
-function ProductDetailReducer(store: ProductType[], action: IAction) {
+function ProductDetailReducer(store: ProductType[] = [], action: IAction) {
   switch (action.type) {
     case ProductActions.ActionTypes.ADD_TO_PRODUCTDETAIL:
-      return [...store, { ...action.product }];
+      return [...store, ...action.product];
     default:
       return store;
   }

@@ -33,7 +33,10 @@ class Product extends React.Component<ProductProps> {
     const { pdata, wishlist, currencyCode } = this.props;
     return (
       <div className="p-4 shadow-lg text-center">
-        <Link to={`/productdetail/${pdata.productId}`}>
+        <Link
+          to={`/productdetail/${pdata.productId}`}
+          onClick={() => console.log("hi")}
+        >
           <ImageWithFallback
             source={pdata.productImage}
             classes={"w-100 h-100 img-thumbnail"}

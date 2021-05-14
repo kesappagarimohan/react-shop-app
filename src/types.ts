@@ -1,6 +1,7 @@
 export type StoreType = {
   currency: string;
   cart: CartType[];
+  productDetail: ProductType[];
   userSession: UserSessionType;
   loading: boolean;
   search: string;
