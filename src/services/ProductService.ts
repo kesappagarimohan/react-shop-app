@@ -2,8 +2,8 @@ import axios from "axios";
 import constants from "../constants";
 import { ProductResponseType, ProductType } from "../types";
 
-const getProducts = (page = 1) => {
-  const url = `${constants.BASE_URL}/product?page=${page}`;
+const getProducts = (page = 1, serachByItem: string) => {
+  const url = `${constants.BASE_URL}/product?page=${page}&serachByTerm=${serachByItem}`;
   return axios.get<ProductResponseType>(url);
 };
 

@@ -1,4 +1,5 @@
 export type StoreType = {
+  qty: any;
   currency: string;
   cart: CartType[];
   productDetail: ProductType[];

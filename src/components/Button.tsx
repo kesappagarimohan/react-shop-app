@@ -1,10 +1,9 @@
 import IconButton from "@material-ui/core/IconButton";
 import React, { Component } from "react";
-import PlusOneIcon from "@material-ui/icons/PlusOne";
+import AddIcon from "@material-ui/icons/Add";
 import Container from "../components/Container";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import ExposureNeg1Icon from "@material-ui/icons/ExposureNeg1";
-import { type } from "node:os";
+import RemoveIcon from "@material-ui/icons/Remove";
 type Props = {
   btnClick: () => void;
   btnInc: () => void;
@@ -44,13 +43,11 @@ class Button extends Component<Props, State> {
       <div>
         <div className="d-flex mb-5">
           <IconButton onClick={this.incrementQty}>
-            <PlusOneIcon />
+            <AddIcon />
           </IconButton>
-          <IconButton>
-            <p>{this.state.qty}</p>
-          </IconButton>
+          <p className="my-3 mx-3">{this.state.qty}</p>
           <IconButton onClick={this.decrimentQty}>
-            <ExposureNeg1Icon />
+            <RemoveIcon />
           </IconButton>
         </div>
         <div className="v">

@@ -29,22 +29,39 @@ type State = {
   totalPages: number;
   pageNumber: number;
   value: any;
+  serachByTerm: string;
 };
-class ProductList extends React.Component<Props, State> {
+class ProductList extends React.PureComponent<Props, State> {
   state: State = {
     plist: [],
     totalPages: 0,
     pageNumber: 1,
     value: [0, 100000],
+    serachByTerm: "",
   };
 
   componentDidMount() {
     this.getData();
+    console.log("intiall", this.state.serachByTerm);
+    this.setState({
+      serachByTerm: this.props.serach,
+    });
+  }
+  componentDidUpdate(prevProps: any) {
+    if (this.props.serach != prevProps.serach) {
+      this.getData();
+      this.setState({
+        serachByTerm: this.props.serach,
+      });
+    }
   }
   async getData() {
     try {
       this.props.showLoader();
-      const { data } = await ProductService.getProducts(this.state.pageNumber);
+      const { data } = await ProductService.getProducts(
+        this.state.pageNumber,
+        this.state.serachByTerm
+      );
       this.setState({
         plist: data.data,
         totalPages: data.totalPages,
@@ -63,42 +80,23 @@ class ProductList extends React.Component<Props, State> {
 
   updateData = (page: number) =>
     this.setState({ pageNumber: page }, () => this.getData());
-  rangeSelector = (event: any, newValue: any) => {
-    this.setState({ value: newValue });
-  };
 
   render() {
     const serach = this.props.serach;
+    console.log("finall", this.props.serach);
     return (
       <LoadingWrapper>
-        <Slider
-          max={100000}
-          value={this.state.value}
-          onChange={this.rangeSelector}
-          valueLabelDisplay="auto"
-        />
-
         <Row>
-          {this.state.plist
-            .filter((val) => {
-              if (serach == "") {
-                return val;
-              } else if (
-                val.productName.toLowerCase().includes(serach.toLowerCase())
-              ) {
-                return val;
-              }
-            })
-            .map((val) => (
-              <Column size={3} classes={"my-3"}>
-                <Product
-                  btnClick={() => this.addToCart(val)}
-                  pdata={val}
-                  key={val.productId}
-                  currencyCode={this.props.selectedCurrency}
-                />
-              </Column>
-            ))}
+          {this.state.plist.map((val) => (
+            <Column size={3} classes={"my-3"}>
+              <Product
+                btnClick={() => this.addToCart(val)}
+                pdata={val}
+                key={val.productId}
+                currencyCode={this.props.selectedCurrency}
+              />
+            </Column>
+          ))}
           <Column size={12} classes={"text-center"}>
             <Paginate
               totalPages={this.state.totalPages}
