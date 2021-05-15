@@ -4,7 +4,7 @@ export type StoreType = {
   productDetail: ProductType[];
   userSession: UserSessionType;
   loading: boolean;
-  search: string;
+  search: any;
   count: number;
 };
 

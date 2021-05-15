@@ -15,6 +15,7 @@ import ExposureNeg1Icon from "@material-ui/icons/ExposureNeg1";
 import { Dispatch } from "redux";
 import CartActions from "../store/actions/CartActions";
 import Button from "../components/Button";
+import { type } from "node:os";
 type Props = {
   cart: CartType[];
   count: number;
@@ -23,14 +24,15 @@ type Props = {
 
   // btnClick: () => void;
 } & RouteComponentProps;
-class Cart extends Component<Props> {
+type State = {
+  qty: number;
+};
+class Cart extends Component<Props, State> {
   // remove(id: number): void {
   //   this.props.removeItem(id); // add to cart logic
   //   //this.props.history.push("/cart"); // redirect to cart page
   // }
-  increment() {
-    this.props.incrementItem();
-  }
+  increment() {}
 
   removeFormCart(id: number) {
     this.props.removeItem(id); // add to cart logic
@@ -75,18 +77,20 @@ class Cart extends Component<Props> {
                   btnClick={() => this.props.removeItem(val.productId)}
                   btnInc={() => this.props.incrementItem()}
                   qty={val.productQty}
+                  stock={val.productStock}
                 />
               </div>
             </Column>
           ))}
           <Column size={4}></Column>
         </Row>
+
         <Row>
           <Column size={12}>
             <NavLink to={"/payment"}>
               <button
                 onClick={() => console.log("checkout")}
-                className="bg-warning border border-3 rounded-3  fw-bold  fs-3 text-light text-center p-2 w-50 align-items-start shadow-lg float-end"
+                className="bg-warning border border-3 rounded-3  fw-bold  fs-3 text-light text-center p-2 w-100 align-items-start shadow-lg float-end"
               >
                 Check Out
               </button>
@@ -106,8 +110,8 @@ const mapStateToProps = (state: StoreType) => {
 };
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    incrementItem: () => dispatch(CartActions.incrementItem()),
-    decrementItem: () => dispatch(CartActions.decrimentItem()),
+    // incrementItem: () => dispatch(CartActions.incrementItem()),
+    // decrementItem: () => dispatch(CartActions.decrimentItem()),
     removeItem: (id: number) => dispatch(CartActions.removeItem(id)),
   };
 };

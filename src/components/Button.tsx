@@ -9,24 +9,35 @@ type Props = {
   btnClick: () => void;
   btnInc: () => void;
   qty: number;
+  stock: number;
 };
 type State = {
   qty: number;
+  stock: number;
 };
 class Button extends Component<Props, State> {
   state: State = {
     qty: this.props.qty,
+    stock: this.props.stock,
   };
 
   incrementQty = () => {
-    this.setState({
-      qty: this.state.qty + 1,
-    });
+    if (this.state.stock > this.state.qty) {
+      this.setState({
+        qty: this.state.qty + 1,
+      });
+    }
   };
   decrimentQty = () => {
-    this.setState({
-      qty: this.state.qty - 1,
-    });
+    if (this.state.qty > 1) {
+      this.setState({
+        qty: this.state.qty - 1,
+      });
+    } else {
+      this.setState({
+        qty: this.state.qty,
+      });
+    }
   };
   render() {
     return (
@@ -38,7 +49,7 @@ class Button extends Component<Props, State> {
           <IconButton>
             <p>{this.state.qty}</p>
           </IconButton>
-          <IconButton onClick={this.incrementQty}>
+          <IconButton onClick={this.decrimentQty}>
             <ExposureNeg1Icon />
           </IconButton>
         </div>

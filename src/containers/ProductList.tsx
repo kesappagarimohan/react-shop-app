@@ -18,6 +18,7 @@ import {
 import { Slider } from "@material-ui/core";
 
 type Props = {
+  serach: any;
   selectedCurrency: string;
   showLoader: () => void;
   hideLoader: () => void;
@@ -36,6 +37,7 @@ class ProductList extends React.Component<Props, State> {
     pageNumber: 1,
     value: [0, 100000],
   };
+
   componentDidMount() {
     this.getData();
   }
@@ -58,7 +60,7 @@ class ProductList extends React.Component<Props, State> {
     this.props.addItem(product); // add to cart logic
     //this.props.history.push("/cart"); // redirect to cart page
   }
-  
+
   updateData = (page: number) =>
     this.setState({ pageNumber: page }, () => this.getData());
   rangeSelector = (event: any, newValue: any) => {
@@ -66,6 +68,7 @@ class ProductList extends React.Component<Props, State> {
   };
 
   render() {
+    const serach = this.props.serach;
     return (
       <LoadingWrapper>
         <Slider
@@ -76,16 +79,26 @@ class ProductList extends React.Component<Props, State> {
         />
 
         <Row>
-          {this.state.plist.map((val) => (
-            <Column size={3} classes={"my-3"}>
-              <Product
-                btnClick={() => this.addToCart(val)}
-                pdata={val}
-                key={val.productId}
-                currencyCode={this.props.selectedCurrency}
-              />
-            </Column>
-          ))}
+          {this.state.plist
+            .filter((val) => {
+              if (serach == "") {
+                return val;
+              } else if (
+                val.productName.toLowerCase().includes(serach.toLowerCase())
+              ) {
+                return val;
+              }
+            })
+            .map((val) => (
+              <Column size={3} classes={"my-3"}>
+                <Product
+                  btnClick={() => this.addToCart(val)}
+                  pdata={val}
+                  key={val.productId}
+                  currencyCode={this.props.selectedCurrency}
+                />
+              </Column>
+            ))}
           <Column size={12} classes={"text-center"}>
             <Paginate
               totalPages={this.state.totalPages}
@@ -102,7 +115,8 @@ class ProductList extends React.Component<Props, State> {
 // store data can be accessed thru the props of the component
 const mapStoreToProps = (store: StoreType) => {
   return {
-    selectedCurrency: store.currency, // undefined => INR => USD
+    selectedCurrency: store.currency,
+    serach: store.search, // undefined => INR => USD
   };
 };
 const mapDispatchToProps = (dispatch: Dispatch) => {

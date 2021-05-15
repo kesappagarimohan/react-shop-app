@@ -5,7 +5,7 @@ import { StoreType } from "../types";
 const LoadingWrapper: React.FC<{}> = ({ children }) => {
   const loading = useSelector<StoreType>((store) => store.loading);
   return (
-    <>
+    <div className="mb-5">
       <div
         className="loader-overlay"
         style={{ visibility: loading ? "visible" : "hidden" }}
@@ -22,7 +22,7 @@ const LoadingWrapper: React.FC<{}> = ({ children }) => {
         </div>
       </div>
       {children}
-    </>
+    </div>
   );
 };
 export default LoadingWrapper;

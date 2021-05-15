@@ -27,7 +27,7 @@ class Header extends React.Component<Props, State> {
     const { theme } = this.props;
     return (
       <nav
-        className={`fixed-top navbar navbar-expand-lg navbar-${theme} bg-${theme} shadow-sm`}
+        className={`fixed-top navbar navbar-expand-md navbar-${theme} bg-${theme} shadow-sm`}
       >
         <Container fluid>
           <Logo />

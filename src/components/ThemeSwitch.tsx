@@ -1,3 +1,4 @@
+import { IconButton } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 
 type Props = {
@@ -22,13 +23,15 @@ const ThemeSwitch: React.FC<Props> = (props) => {
   };
 
   return (
-    <button onClick={updateTheme} className="btn theme-buttons">
-      {theme === "dark" ? (
-        <i className="text-warning fas fa-sun"></i>
-      ) : (
-        <i className="text-secondary fas fa-moon"></i>
-      )}
-    </button>
+    <IconButton>
+      <button onClick={updateTheme} className="btn theme-buttons">
+        {theme === "dark" ? (
+          <i className="text-warning fas fa-sun"></i>
+        ) : (
+          <i className="text-secondary fas fa-moon"></i>
+        )}
+      </button>
+    </IconButton>
   );
 };
 export default ThemeSwitch;

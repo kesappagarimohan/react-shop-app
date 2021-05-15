@@ -32,7 +32,7 @@ class Profile extends React.Component<Props, State> {
           <Column
             size={6}
             classes={
-              " text-center offset-3 bg-secondary fw-bold text-white shadow-lg border border-2"
+              " text-center offset-3 bg-secondary fw-bold text-white shadow-lg border border-2 mt-5"
             }
           >
             <h2 className=" text-light ">User Profile</h2>
@@ -51,7 +51,7 @@ class Profile extends React.Component<Props, State> {
             <h4 className="mt-3">
               From:
               <span className="">{this.state.profileData.createdAt}</span>
-            </h4>{" "}
+            </h4>
           </Column>
         </Row>
       </Container>
