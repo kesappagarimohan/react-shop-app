@@ -23,15 +23,13 @@ const ThemeSwitch: React.FC<Props> = (props) => {
   };
 
   return (
-    <IconButton>
-      <button onClick={updateTheme} className="btn theme-buttons">
-        {theme === "dark" ? (
-          <i className="text-warning fas fa-sun"></i>
-        ) : (
-          <i className="text-secondary fas fa-moon"></i>
-        )}
-      </button>
-    </IconButton>
+    <button onClick={updateTheme} className="btn theme-buttons">
+      {theme === "dark" ? (
+        <i className="text-warning fas fa-sun"></i>
+      ) : (
+        <i className="text-secondary fas fa-moon"></i>
+      )}
+    </button>
   );
 };
 export default ThemeSwitch;

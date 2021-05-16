@@ -19,9 +19,7 @@ const LoginButtons: React.FC = (props) => {
       <>
         <CartButton />
         <Link className="btn btn-link" to={"/profile"}>
-          <IconButton>
-            <Avatar />
-          </IconButton>
+          <Avatar />
         </Link>
         <button
           className="btn btn-sm btn-outline-primary mx-2"
