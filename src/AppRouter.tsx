@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import Address from "./components/Address";
 import Container from "./components/Container";
 import ErrorPage from "./components/ErrorPage";
 import PrivateRoute from "./components/PrivateRoute";
@@ -26,9 +27,9 @@ const AppRouter: React.FC = (props) => {
             <Route path={"/cart"} component={Cart} />
             <PrivateRoute path={"/profile"} component={LazyProfile} />
             <Route path={"/productdetail/:id"} component={ProductDetail} />
-            <Route path={"/payment"} component={Payment}></Route>
-            <Route path={"/register"} component={Register}></Route>
-
+            <Route path={"/payment"} component={Payment} />
+            <Route path={"/register"} component={Register} />
+            <Route path={"/address"} component={Address} />
             {/* 404 Route */}
             <Route component={ErrorPage} />
           </Switch>
