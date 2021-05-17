@@ -19,12 +19,14 @@ type Props = {
   btnClick: () => void;
   qty: number;
   stock: number;
+  sale: any;
 };
 type State = {
   qty: number;
   stock: number;
   amount: number;
   productId: number;
+  total: number;
 };
 class CartItem extends Component<Props, State> {
   state: State = {
@@ -32,6 +34,8 @@ class CartItem extends Component<Props, State> {
     stock: this.props.stock,
     amount: Number(this.props.odata.productSalePrice),
     productId: Number(this.props.odata.productId),
+    total: 0,
+
     //amount: this.props.amount,
   };
 
@@ -49,7 +53,11 @@ class CartItem extends Component<Props, State> {
       console.log(error);
     }
   }
-
+  componentDidUpdate(prevProps: any, prevState: any) {
+    if (this.state.amount !== prevState.amount) {
+      this.qty();
+    }
+  }
   incrementQty = () => {
     if (this.state.stock > this.state.qty) {
       this.setState({
@@ -69,6 +77,9 @@ class CartItem extends Component<Props, State> {
       });
     }
   };
+  qty() {
+    this.state.total = Number(this.state.qty * this.state.amount);
+  }
   render() {
     const { odata } = this.props;
     return (
@@ -92,7 +103,9 @@ class CartItem extends Component<Props, State> {
               Stock: {odata.productStock - this.state.qty}
             </p>
             <p className=" text-success">Price: {odata.productPrice}</p>
+            <p>Total:{this.state.amount * this.state.qty}</p>
           </div>
+
           <div className="d-flex align-items-center flex-column">
             <div className="d-flex mb-5">
               <IconButton onClick={this.incrementQty}>

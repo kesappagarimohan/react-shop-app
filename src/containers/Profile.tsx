@@ -6,27 +6,63 @@ import Container from "../components/Container";
 import ImageWithFallback from "../components/ImageWithFallback";
 import Row from "../components/Row";
 import UserService from "../services/UserService";
+import AddressService from "../services/AddressService";
+import AddressDisplay from "../components/AddressDisplay";
+import StorageService from "../services/StorageService";
+import axios from "axios";
+import constants from "../constants";
 type Props = {};
 type State = {
   profileData: any;
+  address: any;
 };
 
 class Profile extends React.Component<Props, State> {
-  state: State = { profileData: [] };
+  state: State = { profileData: [], address: [] };
 
   async componentDidMount() {
     try {
       const { data } = await UserService.profile();
+
       console.log(data);
       this.setState({
         profileData: data,
+        address: data.address,
       });
     } catch (e) {
       console.log(e.response.data);
     }
   }
+  getData = async () => {
+    try {
+      const { data } = await UserService.profile();
+      console.log(data.address);
+      this.setState({ address: data.address });
+    } catch (e) {
+      console.log(e.response.data);
+    }
+  };
+
+  deleteAddress = async (e: any) => {
+    //console.log("before", e);
+    let deleteAddressId = e.target.value;
+    console.log("id", deleteAddressId);
+    const url = `${constants.BASE_URL}/address/${deleteAddressId}`;
+    return await StorageService.getData("token").then((token) =>
+      axios
+        .delete(url, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then(() => {
+          this.getData();
+          console.log("data deleted");
+        })
+        .catch((err) => console.log(err))
+    );
+  };
   render() {
     console.log(this.state.profileData);
+    console.log(this.state.address);
     return (
       <Container>
         <Row>
@@ -53,9 +89,9 @@ class Profile extends React.Component<Props, State> {
             </div>
           </Column>
           <Column
-            size={7}
+            size={9}
             classes={
-              "offset-md-1 d-flex align-items-center flex-column shadow-lg border border-2 mt-2"
+              " d-flex align-items-center flex-column shadow-lg border border-2 mt-2"
             }
           >
             <form action="" className="w-75 mt-4 ">
@@ -98,46 +134,34 @@ class Profile extends React.Component<Props, State> {
                 />
               </div>
             </form>
-            <div className="mt-4">
-              <h4>FAQs</h4>
-              <p className="fw-bold">
-                What happens when I update my email address (or mobile number)?
-              </p>
-              <p>
-                Your login email id (or mobile number) changes, likewise. You'll
-                receive all your account related communication on your updated
-                email address (or mobile number).
-              </p>
-
-              <p className="fw-bold">
-                When will my Flipkart account be updated with the new email
-                address (or mobile number)?
-              </p>
-              <p>
-                It happens as soon as you confirm the verification code sent to
-                your email (or mobile) and save the changes.
-              </p>
-
-              <p className="fw-bold">
-                What happens to my existing Flipkart account when I update my
-                email address (or mobile number)?
-              </p>
-              <p>
-                Updating your email address (or mobile number) doesn't
-                invalidate your account. Your account remains fully functional.
-                You'll continue seeing your Order history, saved information and
-                personal details.
-              </p>
-
-              <p className="fw-bold">
-                Does my Seller account get affected when I update my email
-                address?
-              </p>
-              <p>
-                Flipkart has a 'single sign-on' policy. Any changes will reflect
-                in your Seller account also.
-              </p>
-            </div>
+            <ul className="w-100">
+              {this.state.address.map((address: any) => (
+                <li className="list-group-item">
+                  {" "}
+                  Address :
+                  <span className="text-warning">
+                    {address.line1} ,{address.line2}, {address.city},{" "}
+                    {address.state} ,{address.pincode}.
+                  </span>
+                  <button
+                    type="button"
+                    className="btn btn-danger btn-sm ms-5 float-end"
+                    value={address.id}
+                    onClick={this.deleteAddress}
+                  >
+                    <i className="fas fa-trash display-7"></i>
+                  </button>
+                </li>
+              ))}
+              <NavLink to={"/address"}>
+                <button type="button" className="btn btn-primary btn-sm">
+                  Update
+                </button>
+              </NavLink>
+              <li className="list-group-item">
+                <NavLink to="/cart">Go to My Orders</NavLink>
+              </li>
+            </ul>
           </Column>
         </Row>
       </Container>

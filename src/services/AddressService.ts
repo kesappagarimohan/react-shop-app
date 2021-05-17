@@ -2,7 +2,7 @@ import axios from "axios";
 import constants from "../constants";
 import StorageService from "./StorageService";
 
-const addressPost = (
+const AddAddress = (
   line1: string,
   line2: string,
   city: string,
@@ -21,5 +21,27 @@ const addressPost = (
     )
   );
 };
+const Address = () => {
+  const url = `${constants.BASE_URL}/address`;
+  return StorageService.getData("token").then((token) =>
+    axios.get(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+  );
+};
+const DeleteAddress = () => {
+  const url = `${constants.BASE_URL}/address`;
 
-export default { addressPost };
+  return StorageService.getData("token").then((token) =>
+    axios
+      .delete(url, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(() => {
+        console.log("data deleted");
+      })
+      .catch((err) => console.log(err))
+  );
+};
+
+export default { AddAddress, DeleteAddress, Address };

@@ -1,125 +1,109 @@
-import axios from "axios";
-import React from "react";
-// import { useHistory } from "react-router";
-import { BrowserRouter, NavLink, Redirect, useHistory } from "react-router-dom";
+import React, { SyntheticEvent } from "react";
+import { RouteComponentProps } from "react-router";
+import { Redirect } from "react-router-dom";
 import Column from "../components/Column";
+import LoadingWrapper from "../components/LoadingWrapper";
 import Row from "../components/Row";
-import Login from "./Login";
+import TextBox from "../components/TextBox";
+import UserService from "../services/UserService";
+
+type RegisterProps = {
+  signinSuccess: (user: object) => void;
+  signinError: (error: string) => void;
+  showLoader: () => void;
+  hideLoader: () => void;
+  isAuthenticated: boolean;
+} & RouteComponentProps;
 
 type RegisterState = {
-  email: any;
-  name: any;
-  password: any;
-  conformpassword: any;
-  redirect: boolean;
+  email: string;
+  password: string;
+  name: string;
+  mobile: number;
 };
 
-class Register extends React.Component {
+class Register extends React.Component<RegisterProps, RegisterState> {
   state: RegisterState = {
     email: "",
-    name: "",
     password: "",
-    conformpassword: "",
-    redirect: false,
+    name: "",
+    mobile: 0,
   };
 
-  submitting = (e: any) => {
-    e.preventDefault();
-    if (this.state.conformpassword === this.state.password) {
-      const user = {
-        name: this.state.name,
-        email: this.state.email,
-        password: this.state.password,
-      };
-      axios.post("http://localhost:5000/auth/register", user).then(
-        (response) => console.log(response.status === 201)
-        // history.state("/login")
+  register = async (e: SyntheticEvent) => {
+    try {
+      e.preventDefault();
+      console.log(e);
+
+      const { email, password, name, mobile } = this.state;
+      const { data } = await UserService.register(
+        email,
+        password,
+        name,
+        mobile
       );
-      this.setState({ redirect: true });
+      this.setState({
+        email,
+        password,
+        name,
+        mobile,
+      });
+      console.log(data);
+      this.props.history.push("/login");
+    } catch (e) {
+      console.error(e);
     }
   };
-
-  redirecting = () => {
-    if (this.state.redirect) {
-      return <Redirect to="/login" />;
-    }
-  };
-
-  changeValue = (e: any) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
   render() {
     return (
-      <div className="container register-form">
-        {this.redirecting()}
+      <LoadingWrapper>
         <Row>
           <Column
-            size={8}
-            classes={"offset-md-2 mt-2 shadow-lg p-5 rounded border border-2"}
+            size={4}
+            classes={
+              "offset-md-4 shadow-sm border p-4 text-center rounded mt-5"
+            }
           >
-            <form>
-              <div className="mb-3">
-                <label htmlFor="FirstName" className="form-label">
-                  Name
-                </label>
+            <h2>Register</h2>
+            <hr />
+
+            <form onSubmit={this.register}>
+              <TextBox
+                placeholder={"Name"}
+                type={"text"}
+                textChange={(name) => this.setState({ name })}
+              />
+
+              <TextBox
+                placeholder={"Email"}
+                type={"email"}
+                textChange={(email) => this.setState({ email })}
+              />
+
+              <div className="form-group my-4">
                 <input
-                  type="email"
+                  type="text"
+                  placeholder="mobile"
                   className="form-control"
-                  id="name"
-                  aria-describedby="nameHelp"
-                  name="name"
-                  value={this.state.name}
-                  onChange={this.changeValue}
-                  required
-                />
-                <div id="nameHelp" className="form-text">
-                  Enter FullName.
-                </div>
-              </div>
-              <div className="mb-3">
-                <label htmlFor="FirstName" className="form-label">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  name="email"
-                  aria-describedby="emailHelp"
-                  value={this.state.email}
-                  onChange={this.changeValue}
-                  required
-                />
-                <div id="emailHelp" className="form-text">
-                  Enter Email.
-                </div>
-              </div>
-              <div className="mb-3">
-                <label htmlFor="exampleInputPassword1" className="form-label">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="password"
-                  name="password"
-                  required
+                  onChange={(e) =>
+                    this.setState({
+                      mobile: Number(e.target.value),
+                    })
+                  }
                 />
               </div>
-              <div className="mb-3 form-check">
-                <input type="checkbox" className="form-check-input" required />
-                <label className="form-check-label" htmlFor="exampleCheck1">
-                  Accept All Term & Conditions
-                </label>
-              </div>
-              <button type="submit" className="btn btn-success">
-                Register
-              </button>
+
+              <TextBox
+                placeholder={"Password"}
+                type={"password"}
+                textChange={(password) => this.setState({ password })}
+              />
+
+              <button className={"btn btn-success w-100"}>REGISTER</button>
             </form>
           </Column>
         </Row>
-      </div>
+      </LoadingWrapper>
     );
   }
 }

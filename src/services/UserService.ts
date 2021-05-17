@@ -18,8 +18,13 @@ const profile = () => {
     })
   );
 };
-const register = (email: string, password: string, name: string) => {
+const register = (
+  email: string,
+  password: string,
+  name: string,
+  mobile: number
+) => {
   const url = `${constants.BASE_URL}/auth/register`;
-  return axios.post(url, { email, password, name });
+  return axios.post(url, { email, password, name, mobile });
 };
 export default { login, profile, register };

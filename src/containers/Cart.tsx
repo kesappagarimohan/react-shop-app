@@ -60,6 +60,7 @@ class Cart extends Component<Props, State> {
               btnClick={() => this.props.removeItem(val.productId)}
               qty={val.productQty}
               stock={val.productStock}
+              sale={val.productSalePrice}
             />
           ))}
           <Column size={4}></Column>

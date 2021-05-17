@@ -40,11 +40,12 @@ class Add extends React.Component<RegisterProps, RegisterState> {
     pincode: 0,
     mobile: 0,
   };
+
   submitData = async (e: SyntheticEvent) => {
     try {
       e.preventDefault();
       const { line1, line2, city, stateName, pincode, mobile } = this.state;
-      const data = await AddressService.addressPost(
+      const data = await AddressService.AddAddress(
         line1,
         line2,
         city,
@@ -73,32 +74,33 @@ class Add extends React.Component<RegisterProps, RegisterState> {
     return (
       <Container>
         <Row>
-          <Column size={12}>
-            <div className="card col-md-6 mx-auto">
+          <Column size={7} classes={"mx-auto"}>
+            <div className=" ">
               <h1 className="text-center">Add Address</h1>
               <small className="text-danger">{this.props.errorMessage}</small>
-              <div className="card-body">
-                <form onSubmit={this.submitData}>
-                  <TextBox
-                    placeholder={"Address1"}
-                    type={"text"}
-                    textChange={(line1) => this.setState({ line1 })}
-                  />
-                  <TextBox
-                    placeholder={"Address2"}
-                    type={"text"}
-                    textChange={(line2) => this.setState({ line2 })}
-                  />
-                  <TextBox
-                    placeholder={"city"}
-                    type={"text"}
-                    textChange={(city) => this.setState({ city })}
-                  />
-                  <TextBox
-                    placeholder={"State"}
-                    type={"text"}
-                    textChange={(stateName) => this.setState({ stateName })}
-                  />
+
+              <form onSubmit={this.submitData}>
+                <TextBox
+                  placeholder={"Address1"}
+                  type={"text"}
+                  textChange={(line1) => this.setState({ line1 })}
+                />
+                <TextBox
+                  placeholder={"Address2"}
+                  type={"text"}
+                  textChange={(line2) => this.setState({ line2 })}
+                />
+                <TextBox
+                  placeholder={"city"}
+                  type={"text"}
+                  textChange={(city) => this.setState({ city })}
+                />
+                <TextBox
+                  placeholder={"State"}
+                  type={"text"}
+                  textChange={(stateName) => this.setState({ stateName })}
+                />
+                <div className="form-group my-4">
                   <input
                     type="text"
                     placeholder="pincode"
@@ -109,6 +111,8 @@ class Add extends React.Component<RegisterProps, RegisterState> {
                       })
                     }
                   />
+                </div>
+                <div className="form-group my-4">
                   <input
                     type="text"
                     placeholder="mobile"
@@ -119,13 +123,14 @@ class Add extends React.Component<RegisterProps, RegisterState> {
                       })
                     }
                   />
-                  {/* <NavLink to={"/profile"}> */}
-                  <button className={"btn btn-dark w-100 text-uppercase"}>
-                    Add{" "}
-                  </button>
-                  {/* </NavLink> */}
-                </form>
-              </div>
+                </div>
+
+                {/* <NavLink to={"/profile"}> */}
+                <button className={"btn btn-success w-100 text-uppercase"}>
+                  Add Address
+                </button>
+                {/* </NavLink> */}
+              </form>
             </div>
           </Column>
         </Row>
