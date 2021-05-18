@@ -42,21 +42,6 @@ class CartItem extends Component<Props, State> {
     //amount: this.props.amount,
   };
 
-  async componentDidMount() {
-    try {
-      const { amount, productId, qty } = this.state;
-      const order = await OrderService.createOrder(amount, productId);
-      this.setState({
-        amount,
-        productId,
-      });
-      console.log(order);
-      console.log(qty);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   render() {
     const { odata } = this.props;
     const { total } = this.state;

@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Address from "./components/Address";
 import Container from "./components/Container";
 import ErrorPage from "./components/ErrorPage";
+import OrderItem from "./components/OrderItem";
 import PrivateRoute from "./components/PrivateRoute";
 import Cart from "./containers/Cart";
 import Login from "./containers/Login";
@@ -23,6 +24,7 @@ const AppRouter: React.FC = (props) => {
           <Switch>
             <Route path={"/"} component={Demo} exact />
             <Route path={"/products"} component={ProductList} />
+            <Route path={"/orders"} component={OrderItem} />
             <Route path={"/login"} component={Login} />
             <Route path={"/cart"} component={Cart} />
             <PrivateRoute path={"/profile"} component={LazyProfile} />

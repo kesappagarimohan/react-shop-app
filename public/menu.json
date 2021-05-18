@@ -1,10 +1,14 @@
 [
-    {
-        "menuItem": "Home",
-        "menuLink": "/"
-    },
-    {
-        "menuItem": "Products",
-        "menuLink": "/products"
-    }
+  {
+    "menuItem": "Home",
+    "menuLink": "/"
+  },
+  {
+    "menuItem": "Orders",
+    "menuLink": "/orders"
+  },
+  {
+    "menuItem": "Products",
+    "menuLink": "/products"
+  }
 ]

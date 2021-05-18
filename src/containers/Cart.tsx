@@ -1,4 +1,4 @@
-import React, { Component, SyntheticEvent } from "react";
+import React, { PureComponent, SyntheticEvent } from "react";
 import { connect } from "react-redux";
 import { NavLink, RouteComponentProps } from "react-router-dom";
 import Column from "../components/Column";
@@ -14,6 +14,7 @@ import CartActions from "../store/actions/CartActions";
 
 import CartItem from "../components/CartItem";
 import OrderService from "../services/OrderService";
+import OrderDetailService from "../services/OrderDetailService";
 type Props = {
   cart: CartType[];
   count: number;
@@ -26,12 +27,43 @@ type Props = {
 type State = {
   qty: number;
   amount: number;
+  productId: number;
+  sDate: string;
+  orderId: number;
 };
-class Cart extends Component<Props, State> {
+class Cart extends PureComponent<Props, State> {
   state: State = {
     amount: 0,
-    qty: 1,
+    qty: 0,
+    productId: 0,
+    orderId: 0,
+    sDate: "2022/11/12",
   };
+  async componentDidMount() {}
+  async addOrder() {
+    try {
+      const { amount, productId, qty, sDate, orderId } = this.state;
+      const order = await OrderService.createOrder(amount, productId, sDate);
+      const orderDetail = await OrderDetailService.createOrderDetail(
+        qty,
+        productId,
+        amount,
+        orderId
+      );
+      console.log(orderDetail);
+
+      this.setState({
+        amount,
+        productId,
+        sDate,
+        qty,
+      });
+      console.log(order);
+      console.log(qty);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   // remove(id: number): void {
   //   this.props.removeItem(id); // add to cart logic
@@ -64,9 +96,14 @@ class Cart extends Component<Props, State> {
                 incClick={() => this.props.increamentQty(val.productId)}
                 decClick={() => this.props.decrementQty(val.productId)}
               />
-
               <p style={{ display: "none" }}>
                 {(Total = Total + val.productSalePrice * val.productQty)}
+                {
+                  (this.state.amount =
+                    Number(val.productSalePrice) * val.productQty)
+                }
+                {(this.state.productId = val.productId)}
+                {(this.state.qty = val.productQty)}
               </p>
             </>
           ))}
@@ -94,7 +131,9 @@ class Cart extends Component<Props, State> {
           <Column size={12}>
             <NavLink to={"/payment"}>
               <button
-                onClick={() => console.log("checkout")}
+                onClick={() => {
+                  this.addOrder();
+                }}
                 className="bg-primary border border-3 rounded-3  fw-bold  fs-3 text-light text-center p-2 w-100 align-items-start shadow-lg float-end"
               >
                 Check Out
