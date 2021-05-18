@@ -18,7 +18,8 @@ type Props = {
   cart: CartType[];
   count: number;
   removeItem: (id: number) => void;
-  incrementItem: () => void;
+  increamentQty: (id: number) => void;
+  decrementQty: (id: number) => void;
 
   // btnClick: () => void;
 } & RouteComponentProps;
@@ -37,13 +38,14 @@ class Cart extends Component<Props, State> {
 
   //   //this.props.history.push("/cart"); // redirect to cart page
   // }
-  increment() {}
 
   removeFormCart(id: number) {
     this.props.removeItem(id); // add to cart logic
     //this.props.history.push("/cart"); // redirect to cart page
   }
   render() {
+    let Total = 0;
+    let discount = Math.floor(Math.random() * 100) + 1;
     return (
       <Container>
         <Row>
@@ -54,16 +56,38 @@ class Cart extends Component<Props, State> {
           </Column>
         </Row>
         <Row>
-          {this.props.cart.map((val) => (
-            <CartItem
-              odata={val}
-              btnClick={() => this.props.removeItem(val.productId)}
-              qty={val.productQty}
-              stock={val.productStock}
-              sale={val.productSalePrice}
-            />
+          {this.props.cart.map((val: any, index: number) => (
+            <>
+              <CartItem
+                odata={val}
+                btnClick={() => this.props.removeItem(val.productId)}
+                incClick={() => this.props.increamentQty(val.productId)}
+                decClick={() => this.props.decrementQty(val.productId)}
+              />
+
+              <p style={{ display: "none" }}>
+                {(Total = Total + val.productSalePrice * val.productQty)}
+              </p>
+            </>
           ))}
-          <Column size={4}></Column>
+          <Column size={4} classes={"offset-md-1 position-fixed top-40 end-0"}>
+            <div className="d-flex justify-content-between align-items-center shadow shadow-lg">
+              <div className="">
+                <h5 className="m-3">Price</h5>
+                <h5 className="m-3">Disscount</h5>
+                <h5 className="m-3 border-bottom">Delivery Charges</h5>
+
+                <h5 className="m-3">TotalAmount</h5>
+              </div>
+              <div className="">
+                <h5 className="m-3">{Total}</h5>
+                <h5 className="m-3 text-success"> -{discount}</h5>
+                <h5 className="m-3 text-success border-bottom">FREE</h5>
+
+                <h5 className="m-3 ">{Total - discount}</h5>
+              </div>
+            </div>
+          </Column>
         </Row>
 
         <Row>
@@ -86,7 +110,6 @@ class Cart extends Component<Props, State> {
 const mapStateToProps = (state: StoreType) => {
   return {
     cart: state.cart,
-    count: state.count,
   };
 };
 const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -94,6 +117,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     // incrementItem: () => dispatch(CartActions.incrementItem()),
     // decrementItem: () => dispatch(CartActions.decrimentItem()),
     removeItem: (id: number) => dispatch(CartActions.removeItem(id)),
+    increamentQty: (id: number) => dispatch(CartActions.increaseQty(id)),
+    decrementQty: (id: number) => dispatch(CartActions.decrementQty(id)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

@@ -4,16 +4,32 @@ import CartActions from "../actions/CartActions";
 type IAction = {
   product: ProductType;
   id: number;
-  qty: number;
+  qtyId: number;
 } & Action;
-
 // state : initialise, immutable
 function cartReducer(store: CartType[] = [], action: IAction) {
   switch (action.type) {
     case CartActions.ActionTypes.ADD_TO_CART:
       return [...store, { ...action.product, productQty: 1 }];
+
     case CartActions.ActionTypes.REMOVE_ITEM:
-      return store.filter((prod) => prod.productId !== action.id);
+      return store.filter((product) => product.productId !== action.id);
+
+    case CartActions.ActionTypes.INCREAMENT:
+      return store.map((product) => {
+        if (product.productId === action.qtyId) {
+          product.productQty++;
+        }
+        return product;
+      });
+
+    case CartActions.ActionTypes.DECREMENT:
+      return store.map((product) => {
+        if (product.productId === action.qtyId) {
+          product.productQty--;
+        }
+        return product;
+      });
 
     default:
       return store;

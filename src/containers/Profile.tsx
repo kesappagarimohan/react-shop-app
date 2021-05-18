@@ -11,6 +11,7 @@ import AddressDisplay from "../components/AddressDisplay";
 import StorageService from "../services/StorageService";
 import axios from "axios";
 import constants from "../constants";
+import FileUpload from "../components/FileUpload";
 type Props = {};
 type State = {
   profileData: any;
@@ -78,14 +79,14 @@ class Profile extends React.Component<Props, State> {
               </div>
             </div>
             <div className="border-bottom mt-5 ">
-              <Link to={`/cart`}>
+              <NavLink to={`/cart`}>
                 <h2>MyCart</h2>
-              </Link>
+              </NavLink>
             </div>
             <div className="border-bottom mt-5 ">
-              <Link to={`/address`}>
+              <NavLink to={`/address`}>
                 <h2>MyAddress</h2>
-              </Link>
+              </NavLink>
             </div>
           </Column>
           <Column
@@ -140,8 +141,8 @@ class Profile extends React.Component<Props, State> {
                   {" "}
                   Address :
                   <span className="text-warning">
-                    {address.line1} ,{address.line2}, {address.city},{" "}
-                    {address.state} ,{address.pincode}.
+                    {address.line1} ,{address.line2}, {address.city},
+                    {address.state} ,{address.pincode},{address.mobile}.
                   </span>
                   <button
                     type="button"
@@ -153,11 +154,8 @@ class Profile extends React.Component<Props, State> {
                   </button>
                 </li>
               ))}
-              <NavLink to={"/address"}>
-                <button type="button" className="btn btn-primary btn-sm">
-                  Update
-                </button>
-              </NavLink>
+
+              <FileUpload />
               <li className="list-group-item">
                 <NavLink to="/cart">Go to My Orders</NavLink>
               </li>

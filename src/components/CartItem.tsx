@@ -1,7 +1,7 @@
 import { IconButton } from "@material-ui/core";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { CartType } from "../types";
+import { CartType, StoreType } from "../types";
 import formatter from "../utils/formatter";
 
 import ImageWithFallback from "./ImageWithFallback";
@@ -13,28 +13,31 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import Row from "./Row";
 import Column from "./Column";
 import OrderService from "../services/OrderService";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import TotalActions from "../store/actions/TotalAction";
 
 type Props = {
   odata: CartType;
   btnClick: () => void;
-  qty: number;
-  stock: number;
-  sale: any;
+
+  incClick: () => void;
+  decClick: () => void;
+  totalAmount: (totalAmount: any) => void;
 };
 type State = {
-  qty: number;
-  stock: number;
-  amount: number;
   productId: number;
   total: number;
+  amount: number;
+  qty: number;
 };
 class CartItem extends Component<Props, State> {
   state: State = {
-    qty: this.props.qty,
-    stock: this.props.stock,
-    amount: Number(this.props.odata.productSalePrice),
     productId: Number(this.props.odata.productId),
     total: 0,
+    amount: 0,
+    //amount:0,
+    qty: 0,
 
     //amount: this.props.amount,
   };
@@ -53,39 +56,15 @@ class CartItem extends Component<Props, State> {
       console.log(error);
     }
   }
-  componentDidUpdate(prevProps: any, prevState: any) {
-    if (this.state.amount !== prevState.amount) {
-      this.qty();
-    }
-  }
-  incrementQty = () => {
-    if (this.state.stock > this.state.qty) {
-      this.setState({
-        qty: this.state.qty + 1,
-      });
-      console.log("inc", this.state.qty);
-    }
-  };
-  decrimentQty = () => {
-    if (this.state.qty > 1) {
-      this.setState({
-        qty: this.state.qty - 1,
-      });
-    } else {
-      this.setState({
-        qty: this.state.qty,
-      });
-    }
-  };
-  qty() {
-    this.state.total = Number(this.state.qty * this.state.amount);
-  }
+
   render() {
     const { odata } = this.props;
+    const { total } = this.state;
+
     return (
       <>
         <Column
-          size={6}
+          size={7}
           classes={
             "d-flex align-items-center justify-content-center shadow-lg border border-2 mb-3"
           }
@@ -100,20 +79,26 @@ class CartItem extends Component<Props, State> {
             <h5 className={""}>{formatter.titlecase(odata.productName)}</h5>
             <p className="text-dark ">SalePrice: {odata.productSalePrice}</p>
             <p className=" text-danger">
-              Stock: {odata.productStock - this.state.qty}
+              Stock: {odata.productStock - odata.productQty}
             </p>
             <p className=" text-success">Price: {odata.productPrice}</p>
-            <p>Total:{this.state.amount * this.state.qty}</p>
+            <p>
+              Total:
+              {
+                (this.state.amount =
+                  Number(odata.productSalePrice) * odata.productQty)
+              }
+            </p>
           </div>
 
           <div className="d-flex align-items-center flex-column">
             <div className="d-flex mb-5">
-              <IconButton onClick={this.incrementQty}>
+              <IconButton onClick={() => this.props.incClick()}>
                 <AddIcon />
               </IconButton>
-              <p className="mt-4">{this.state.qty}</p>
+              <p className="mt-4">{(this.state.qty = odata.productQty)}</p>
 
-              <IconButton onClick={this.decrimentQty}>
+              <IconButton onClick={() => this.props.decClick()}>
                 <RemoveIcon />
               </IconButton>
             </div>
@@ -124,9 +109,20 @@ class CartItem extends Component<Props, State> {
             </div>
           </div>
         </Column>
-        <Column size={4}></Column>
       </>
     );
   }
 }
-export default CartItem;
+const mapStateToProps = (state: StoreType) => {
+  return {
+    total: state.total,
+  };
+};
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    totalAmount: (totalAmount: any) =>
+      dispatch(TotalActions.totalAmount(totalAmount)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

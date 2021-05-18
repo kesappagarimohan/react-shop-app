@@ -1,11 +1,10 @@
-import { type } from "node:os";
 import { ProductType } from "../../types";
 
 const ActionTypes = {
   ADD_TO_CART: "[Cart] Add to cart",
   REMOVE_ITEM: "[Cart] Remove item",
-  INCRIMENT: "[increment]",
-  DECRIMENT: "DEC",
+  INCREAMENT: "[Cart] Increament",
+  DECREMENT: "[Cart]  Decrement",
 };
 
 const addToCart = (product: ProductType) => {
@@ -20,21 +19,22 @@ const removeItem = (id: number) => {
     id,
   };
 };
-
-const incrementItem = () => {
+const increaseQty = (qtyId: number) => {
   return {
-    type: ActionTypes.INCRIMENT,
+    type: ActionTypes.INCREAMENT,
+    qtyId,
   };
 };
-const decrimentItem = () => {
+const decrementQty = (qtyId: number) => {
   return {
-    type: ActionTypes.DECRIMENT,
+    type: ActionTypes.DECREMENT,
+    qtyId,
   };
 };
 export default {
   ActionTypes,
   addToCart,
   removeItem,
-  incrementItem,
-  decrimentItem,
+  increaseQty,
+  decrementQty,
 };

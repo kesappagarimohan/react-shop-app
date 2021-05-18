@@ -6,7 +6,7 @@ import ErrorPage from "./components/ErrorPage";
 import PrivateRoute from "./components/PrivateRoute";
 import Cart from "./containers/Cart";
 import Login from "./containers/Login";
-import { Payment } from "./containers/Payment";
+import Payment from "./containers/Payment";
 import ProductDetail from "./containers/ProductDetail";
 import ProductList from "./containers/ProductList";
 import Register from "./containers/Register";

@@ -1,17 +1,25 @@
 import React, { SyntheticEvent } from "react";
+import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Column from "../components/Column";
 import Container from "../components/Container";
 import Row from "../components/Row";
+import { CartType, StoreType } from "../types";
 import Cart from "./Cart";
 
-export class Payment extends React.Component {
+type Props = {
+  cart: CartType[];
+};
+class Payment extends React.Component<Props> {
   paymentCheckout = async (e: SyntheticEvent) => {
     try {
       e.preventDefault();
     } catch (e) {}
   };
   render() {
+    let total = 0;
+
+    let discount = Math.floor(Math.random() * 100) + 1;
     return (
       <Container>
         <Row>
@@ -20,9 +28,9 @@ export class Payment extends React.Component {
               Billing
             </h2>
             <Row>
-              <Column size={6} classes={"bg-light mx-auto"}>
+              <Column size={8} classes={"bg-light"}>
                 <form
-                  className="needs-validation border border-5 p-4 shadow-lg rounded fw-bold"
+                  className=" border border-5 p-4 shadow-lg rounded fw-bold"
                   noValidate
                   onSubmit={this.paymentCheckout}
                 >
@@ -70,7 +78,7 @@ export class Payment extends React.Component {
                       placeholder="XXX"
                       required
                     />
-                  </div>{" "}
+                  </div>
                   <br />
                   <NavLink to={"/errorpage"}>
                     <button
@@ -83,6 +91,30 @@ export class Payment extends React.Component {
                   </NavLink>
                 </form>
               </Column>
+              <Column size={4}>
+                {this.props.cart.map((val) => (
+                  <p style={{ display: "none" }}>
+                    {
+                      (total =
+                        total + parseInt(val.productSalePrice) * val.productQty)
+                    }
+                  </p>
+                ))}
+                <div className="d-flex justify-content-between align-items-center shadow shadow-lg">
+                  <div className="">
+                    <h5 className="m-3">TotalAmount</h5>
+                    <h5 className="m-3">Disscount</h5>
+                    <h5 className="m-3">Delivery Charges</h5>
+                    <h5 className="m-3">Delivery price</h5>
+                  </div>
+                  <div className="">
+                    <h5 className="m-3">{total}</h5>
+                    <h5 className="m-3 text-success"> -{discount}</h5>
+                    <h5 className="m-3 text-success">FREE</h5>
+                    <h5 className="m-3">{total - discount}</h5>
+                  </div>
+                </div>
+              </Column>
             </Row>
           </Column>
         </Row>
@@ -90,3 +122,9 @@ export class Payment extends React.Component {
     );
   }
 }
+const mapStateToProps = (state: StoreType) => {
+  return {
+    cart: state.cart,
+  };
+};
+export default connect(mapStateToProps)(Payment);

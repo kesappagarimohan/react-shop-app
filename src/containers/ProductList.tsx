@@ -157,8 +157,8 @@ class ProductList extends React.PureComponent<Props, State> {
                 </option>
                 <option value="PriceLowToHigh">Price Low 👉 High</option>
                 <option value="PriceHighToLow">Price High 👉 Low</option>
-                <option value="NameLowToHigh">Name Low 👉 High</option>
-                <option value="NameHighToLow">Name High 👉 Low</option>
+                <option value="NameLowToHigh">Name A 👉 Z</option>
+                <option value="NameHighToLow">Name Z 👉 A</option>
               </select>
             </Column>
           </Row>
