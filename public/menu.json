@@ -4,11 +4,11 @@
     "menuLink": "/"
   },
   {
-    "menuItem": "Orders",
-    "menuLink": "/orders"
-  },
-  {
     "menuItem": "Products",
     "menuLink": "/products"
+  },
+  {
+    "menuItem": "Orders",
+    "menuLink": "/orders"
   }
 ]

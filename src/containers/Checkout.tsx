@@ -167,27 +167,27 @@ class Checkout extends React.Component<Props, State> {
                       <div>
                         <h3 className="fw-bold text-dark">
                           Address1 :
-                          <span className="text-warning">{addr.line1} </span>
+                          <span className="text-primary">{addr.line1} </span>
                         </h3>
                         <h3 className="fw-bold text-dark">
                           Address2 :
-                          <span className="text-warning">{addr.line1} </span>
+                          <span className="text-primary">{addr.line1} </span>
                         </h3>
                         <h3 className="fw-bold text-dark">
                           Address1 :
                           <h3 className="fw-bold text-dark">
-                            <span className="text-warning">{addr.line2} </span>
+                            <span className="text-primary">{addr.line2} </span>
                           </h3>
                           City :
-                          <span className="text-warning">{addr.city} </span>
+                          <span className="text-primary">{addr.city} </span>
                         </h3>
                         <h3 className="fw-bold text-dark">
                           State :
-                          <span className="text-warning">{addr.state} </span>
+                          <span className="text-primary">{addr.state} </span>
                         </h3>
                         <h3 className="fw-bold text-dark">
                           Pinocode :
-                          <span className="text-warning">{addr.pincode} </span>
+                          <span className="text-primary">{addr.pincode} </span>
                         </h3>
                       </div>
                     ))}
