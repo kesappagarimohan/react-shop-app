@@ -82,23 +82,39 @@ class Register extends React.Component<RegisterProps, RegisterState> {
             <hr />
 
             <form onSubmit={this.register}>
-              <TextBox
-                placeholder={"Name"}
-                type={"text"}
-                textChange={(name) => this.setState({ name })}
-              />
+              <div className="form-group my-4">
+                <input
+                  type="text"
+                  placeholder="name"
+                  className="form-control"
+                  name="name"
+                  onChange={(e) =>
+                    this.setState({
+                      name: e.target.value,
+                    })
+                  }
+                />
+              </div>
 
-              <TextBox
-                placeholder={"Email"}
-                type={"email"}
-                textChange={(email) => this.setState({ email })}
-              />
-
+              <div className="form-group my-4">
+                <input
+                  type="text"
+                  placeholder="email"
+                  className="form-control"
+                  name="email"
+                  onChange={(e) =>
+                    this.setState({
+                      email: e.target.value,
+                    })
+                  }
+                />
+              </div>
               <div className="form-group my-4">
                 <input
                   type="text"
                   placeholder="mobile"
                   className="form-control"
+                  name="mobile"
                   onChange={(e) =>
                     this.setState({
                       mobile: Number(e.target.value),

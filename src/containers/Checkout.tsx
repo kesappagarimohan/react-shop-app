@@ -143,9 +143,9 @@ class Checkout extends React.Component<Props, State> {
 
                     <button
                       type="submit"
-                      className="btn bg-primary w-100 text-uppercase"
+                      className="btn bg-primary w-100 text-uppercase text-white"
                     >
-                      CheckOut
+                      Payment
                     </button>
                   </form>
                 </Column>
@@ -153,15 +153,15 @@ class Checkout extends React.Component<Props, State> {
                   <div className="card border border-3 shadow-lg">
                     <h3 className="fw-bold text-dark ">
                       Name :
-                      <span className="text-warning">
+                      <span className="text-success">
                         {this.state.userList.userName}
                       </span>
                     </h3>
                     <h3 className="fw-bold text-dark">
-                      Email :{" "}
-                      <span className="text-warning">
+                      Email :
+                      <span className="text-success">
                         {this.state.userList.userEmail}
-                      </span>{" "}
+                      </span>
                     </h3>
                     {this.state.addressData.map((addr: any) => (
                       <div>
@@ -175,9 +175,9 @@ class Checkout extends React.Component<Props, State> {
                         </h3>
                         <h3 className="fw-bold text-dark">
                           Address1 :
-                          <span className="text-warning">{addr.line2} </span>
-                        </h3>
-                        <h3 className="fw-bold text-dark">
+                          <h3 className="fw-bold text-dark">
+                            <span className="text-warning">{addr.line2} </span>
+                          </h3>
                           City :
                           <span className="text-warning">{addr.city} </span>
                         </h3>

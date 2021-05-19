@@ -1,48 +1,40 @@
 import React from "react";
-import Column from "./components/Column";
+import styled from "styled-components";
 
 type State = { no: number; count: number };
 class Demo extends React.Component<{}, State> {
   state: State = { no: 0, count: 0 };
-  shouldComponentUpdate(nextProps: {}, nextState: State) {
-    console.log("SHOULD COMPONENT UPDATE");
-    console.log("PROPS", this.props, nextProps);
-    console.log("STATE", this.state, nextState);
-    return this.state.no !== nextState.no || nextState.count === 7;
-  }
+
   render() {
-    console.log("RENDER CALLED", this.state);
-    const name = "Mike";
     return (
-      <div className="row">
-        <Column size={12}>
-          <h1>Demo Component</h1>
-          <p>Some html content</p>
-          {this.state.count > 6 ? <p>Hello from {name.toUpperCase()}</p> : null}
-          <p>{7 + 3}</p>
-          <button
-            onClick={() => this.setState({ no: 1 })}
-            className="btn btn-sm btn-primary mx-2"
-          >
-            Change state to 1
-          </button>
-          <button
-            onClick={() => this.setState({ no: 0 })}
-            className="btn btn-sm btn-primary mx-2"
-          >
-            Change state to 0
-          </button>
-          <button
-            className="btn btn-sm btn-primary mx-2"
-            onClick={() =>
-              this.setState((prevState) => ({ count: prevState.count + 1 }))
-            }
-          >
-            Increment count
-          </button>
-        </Column>
+      <div className="container-fluid">
+        <Hello>
+          <h1>WELCOME TO REACT-SHOP-APP</h1>
+        </Hello>
       </div>
     );
   }
 }
 export default Demo;
+
+const Hello = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5%;
+  padding: 15% 1%;
+  box-shadow: inset 2px 4px 4px 3px #dfdfeb,
+    4px 2px 4px 10px rgba(0, 212, 255, 1);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
+
+  h1 {
+    font-size: 72px;
+    color: white;
+    text-shadow: inset 20px 2px 10px 3px #d9ecef;
+  }
+`;
