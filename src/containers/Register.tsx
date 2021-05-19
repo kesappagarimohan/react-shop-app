@@ -1,11 +1,13 @@
-import React, { SyntheticEvent } from "react";
+import React from "react";
 import { RouteComponentProps } from "react-router";
-import { Redirect } from "react-router-dom";
+
 import Column from "../components/Column";
 import LoadingWrapper from "../components/LoadingWrapper";
 import Row from "../components/Row";
 import TextBox from "../components/TextBox";
-import UserService from "../services/UserService";
+
+import emailjs from "emailjs-com";
+import axios from "axios";
 
 type RegisterProps = {
   signinSuccess: (user: object) => void;
@@ -30,25 +32,37 @@ class Register extends React.Component<RegisterProps, RegisterState> {
     mobile: 0,
   };
 
-  register = async (e: SyntheticEvent) => {
+  register = async (e: any) => {
     try {
       e.preventDefault();
       console.log(e);
-
-      const { email, password, name, mobile } = this.state;
-      const { data } = await UserService.register(
-        email,
-        password,
-        name,
-        mobile
+      const user = {
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password,
+        mobile: this.state.mobile,
+      };
+      axios.post("http://localhost:5000/auth/register", user).then(
+        (response) => (
+          console.log(response.status === 201),
+          emailjs
+            .sendForm(
+              "service_ovcg4pp",
+              "template_orqdz5i",
+              e.target,
+              "user_gDx5Fv3bdLcTheBkaTjWT"
+            )
+            .then(
+              (result) => {
+                console.log(result.text);
+              },
+              (error) => {
+                console.log(error.text);
+              }
+            )
+        )
       );
-      this.setState({
-        email,
-        password,
-        name,
-        mobile,
-      });
-      console.log(data);
+
       this.props.history.push("/login");
     } catch (e) {
       console.error(e);

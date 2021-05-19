@@ -1,4 +1,4 @@
-import React, { PureComponent, SyntheticEvent } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { NavLink, RouteComponentProps } from "react-router-dom";
 import Column from "../components/Column";
@@ -14,7 +14,7 @@ import CartActions from "../store/actions/CartActions";
 
 import CartItem from "../components/CartItem";
 import OrderService from "../services/OrderService";
-import OrderDetailService from "../services/OrderDetailService";
+
 type Props = {
   cart: CartType[];
   count: number;
@@ -43,14 +43,12 @@ class Cart extends PureComponent<Props, State> {
   async addOrder() {
     try {
       const { amount, productId, qty, sDate, orderId } = this.state;
-      const order = await OrderService.createOrder(amount, productId, sDate);
-      const orderDetail = await OrderDetailService.createOrderDetail(
-        qty,
-        productId,
+      const order = await OrderService.createOrder(
         amount,
-        orderId
+        productId,
+        sDate,
+        qty
       );
-      console.log(orderDetail);
 
       this.setState({
         amount,
@@ -129,7 +127,7 @@ class Cart extends PureComponent<Props, State> {
 
         <Row>
           <Column size={12}>
-            <NavLink to={"/payment"}>
+            <NavLink to={"/checkout"}>
               <button
                 onClick={() => {
                   this.addOrder();
@@ -153,8 +151,6 @@ const mapStateToProps = (state: StoreType) => {
 };
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    // incrementItem: () => dispatch(CartActions.incrementItem()),
-    // decrementItem: () => dispatch(CartActions.decrimentItem()),
     removeItem: (id: number) => dispatch(CartActions.removeItem(id)),
     increamentQty: (id: number) => dispatch(CartActions.increaseQty(id)),
     decrementQty: (id: number) => dispatch(CartActions.decrementQty(id)),

@@ -1,13 +1,11 @@
-import { Avatar, IconButton } from "@material-ui/core";
+import { Avatar } from "@material-ui/core";
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Column from "../components/Column";
 import Container from "../components/Container";
-import ImageWithFallback from "../components/ImageWithFallback";
+
 import Row from "../components/Row";
 import UserService from "../services/UserService";
-import AddressService from "../services/AddressService";
-import AddressDisplay from "../components/AddressDisplay";
 import StorageService from "../services/StorageService";
 import axios from "axios";
 import constants from "../constants";

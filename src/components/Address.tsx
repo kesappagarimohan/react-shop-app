@@ -1,22 +1,16 @@
-import React, { SyntheticEvent, Fragment } from "react";
-import { Redirect, RouteComponentProps } from "react-router";
+import React, { SyntheticEvent } from "react";
+import { RouteComponentProps } from "react-router";
 import Column from "../components/Column";
 import Row from "../components/Row";
-import ProductService from "../services/ProductService";
-import ErrorBoundary from "../components/ErrorBoundary";
-import ImageWithFallback from "../components/ImageWithFallback";
 import Container from "../components/Container";
 import TextBox from "../components/TextBox";
-import { NavLink } from "react-router-dom";
-import UserService from "../services/UserService";
+
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import LoadingActions from "../store/actions/LoadingActions";
-import UserActions from "../store/actions/UserActions";
-import formatter from "../utils/formatter";
-import LoadingWrapper from "../components/LoadingWrapper";
-import { StoreType } from "../types";
+
 import AddressService from "../services/AddressService";
+import { NavLink } from "react-router-dom";
 
 type RegisterProps = {
   errorMessage: string | null;
@@ -125,11 +119,11 @@ class Add extends React.Component<RegisterProps, RegisterState> {
                   />
                 </div>
 
-                {/* <NavLink to={"/profile"}> */}
-                <button className={"btn btn-success w-100 text-uppercase"}>
-                  Add Address
-                </button>
-                {/* </NavLink> */}
+                <NavLink to={"/profile"}>
+                  <button className={"btn btn-success w-100 text-uppercase"}>
+                    Add Address
+                  </button>
+                </NavLink>
               </form>
             </div>
           </Column>

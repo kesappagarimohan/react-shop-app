@@ -35,11 +35,6 @@ class ProductDetail extends React.Component<Props, State, RouteComponentProps> {
   render() {
     return (
       <ErrorBoundary>
-        {/* <Row>
-          <Column size={12} classes={"text-center text-primary"}>
-            <h1>Product Detail</h1>
-          </Column>
-        </Row> */}
         <Row>
           {this.state.data.map((val) => (
             <Column

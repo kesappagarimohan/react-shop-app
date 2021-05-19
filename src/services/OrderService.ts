@@ -5,13 +5,14 @@ import StorageService from "./StorageService";
 const createOrder = async (
   amount: number,
   productId: number,
-  sDate: string
+  sDate: string,
+  qty: number
 ) => {
   const url = `${constants.BASE_URL}/order`;
   return StorageService.getData("token").then((token) =>
     axios.post(
       url,
-      { amount, productId, sDate },
+      { amount, productId, sDate, qty },
       { headers: { Authorization: `Bearer ${token}` } }
     )
   );

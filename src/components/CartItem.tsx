@@ -10,9 +10,9 @@ import AddIcon from "@material-ui/icons/Add";
 
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import RemoveIcon from "@material-ui/icons/Remove";
-import Row from "./Row";
+
 import Column from "./Column";
-import OrderService from "../services/OrderService";
+
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import TotalActions from "../store/actions/TotalAction";
@@ -36,10 +36,8 @@ class CartItem extends Component<Props, State> {
     productId: Number(this.props.odata.productId),
     total: 0,
     amount: 0,
-    //amount:0,
-    qty: 0,
 
-    //amount: this.props.amount,
+    qty: 0,
   };
 
   render() {

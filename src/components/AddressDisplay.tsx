@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import Column from "./Column";
-import Row from "./Row";
 
 type Props = {
   add: any;

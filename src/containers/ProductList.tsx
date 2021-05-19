@@ -11,7 +11,7 @@ import CartActions from "../store/actions/CartActions";
 import Paginate from "../components/Paginate";
 import LoadingWrapper from "../components/LoadingWrapper";
 import LoadingActions from "../store/actions/LoadingActions";
-import { Slider } from "@material-ui/core";
+
 import "../App.css";
 import { AirbnbSlider, AirbnbThumbComponent } from "../components/Tooltip";
 type Props = {

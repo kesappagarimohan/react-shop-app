@@ -1,5 +1,5 @@
 import { Action } from "redux";
-//import { Action } from 'redux';
+
 import SerachAction from "../actions/SearchAction";
 
 type IAction = {

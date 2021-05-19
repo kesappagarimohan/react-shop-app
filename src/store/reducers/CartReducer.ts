@@ -30,7 +30,8 @@ function cartReducer(store: CartType[] = [], action: IAction) {
         }
         return product;
       });
-
+    case CartActions.ActionTypes.RESECART:
+      return [];
     default:
       return store;
   }

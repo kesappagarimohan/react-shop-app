@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { StoreType } from "../types";
 import SerachAction from "../store/actions/SearchAction";

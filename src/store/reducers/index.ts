@@ -11,7 +11,6 @@ import TotalReducer from "./TotalAmountReducer";
 import userReducer from "./UserReducer";
 
 const rootReducer = combineReducers<StoreType>({
-  // data: reducer
   productDetail: ProductDetailReducer,
   currency: currencyReducer,
   cart: cartReducer,
@@ -19,8 +18,6 @@ const rootReducer = combineReducers<StoreType>({
   loading: loadingReducer,
   search: SearchReducer,
   total: TotalReducer,
-
-  //qty: QtyReducer,
 });
 
 export default rootReducer;
