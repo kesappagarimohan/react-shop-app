@@ -3,6 +3,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Column from "../components/Column";
 import Container from "../components/Container";
+import ProfileUpload from "../components/ProfileUpload";
 
 import Row from "../components/Row";
 import UserService from "../services/UserService";
@@ -14,10 +15,19 @@ type Props = {};
 type State = {
   profileData: any;
   address: any;
+  profileImage: any;
+  userProfileImage: string;
+  hide: boolean;
 };
 
 class Profile extends React.Component<Props, State> {
-  state: State = { profileData: [], address: [] };
+  state: State = {
+    profileData: [],
+    address: [],
+    userProfileImage: "",
+    profileImage: "",
+    hide: true,
+  };
 
   async componentDidMount() {
     try {
@@ -28,6 +38,7 @@ class Profile extends React.Component<Props, State> {
         profileData: data,
         address: data.address,
       });
+      this.setState({ userProfileImage: data.profileImage });
     } catch (e) {
       console.log(e.response.data);
     }
@@ -40,6 +51,15 @@ class Profile extends React.Component<Props, State> {
     } catch (e) {
       console.log(e.response.data);
     }
+    axios
+      .get(
+        `http://localhost:5000/auth/profileImage/${this.state.userProfileImage}`
+      )
+      .then((response) =>
+        this.setState({
+          profileImage: response.request.responseURL,
+        })
+      );
   };
 
   deleteAddress = async (e: any) => {
@@ -59,6 +79,12 @@ class Profile extends React.Component<Props, State> {
         .catch((err) => console.log(err))
     );
   };
+  iconClicked = () => {
+    this.setState({
+      hide: false,
+    });
+  };
+
   render() {
     console.log(this.state.profileData);
     console.log(this.state.address);
@@ -70,7 +96,20 @@ class Profile extends React.Component<Props, State> {
             classes={" text-center   fw-bold shadow-lg border border-2 mt-2"}
           >
             <div className="d-flex justify-content-around border-bottom">
-              <Avatar className="m-4 w-25 h-25" />
+              <div className="profileImage" id="profileImage">
+                <img
+                  src={this.state.profileImage}
+                  alt="Profile Image"
+                  className="img-thumbnail"
+                  width="250px"
+                />
+
+                <i className="fas fa-upload" onClick={this.iconClicked}></i>
+                {this.state.hide ? null : (
+                  <ProfileUpload getData={this.getData} />
+                )}
+              </div>
+
               <div className="m-3">
                 <p className="mt-1">Hello</p>
                 <h3 className="mb-3">{this.state.profileData.userName}</h3>
@@ -79,6 +118,11 @@ class Profile extends React.Component<Props, State> {
             <div className="border-bottom mt-5 ">
               <NavLink to={`/cart`}>
                 <h2>MyCart</h2>
+              </NavLink>
+            </div>
+            <div className="border-bottom mt-5 ">
+              <NavLink to={`/orders`}>
+                <h2>MyOrders</h2>
               </NavLink>
             </div>
             <div className="border-bottom mt-5 ">
@@ -154,9 +198,6 @@ class Profile extends React.Component<Props, State> {
               ))}
 
               <FileUpload />
-              <li className="list-group-item">
-                <NavLink to="/cart">Go to My Orders</NavLink>
-              </li>
             </ul>
           </Column>
         </Row>
